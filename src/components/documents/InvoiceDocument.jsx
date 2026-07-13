@@ -70,7 +70,7 @@ export function InvoiceDocument({ id, previewData, accentColor, logoUrl, institu
         </>
       )}
       <div style={{ textAlign: 'center', fontSize: '10px', color: '#aaa', lineHeight: 1.8 }}>
-        <div>{footerNote || 'ขอบคุณที่ไว้วางใจเราค่ะ 🙏'}</div>
+        <div>{footerNote || 'ขอบคุณที่ไว้วางใจเราครับ 🙏'}</div>
         <div style={{ marginTop: '4px', letterSpacing: '0.05em' }}>{instituteName}</div>
       </div>
     </div>

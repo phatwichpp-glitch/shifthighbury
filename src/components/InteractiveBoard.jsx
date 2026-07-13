@@ -535,7 +535,7 @@ export function InteractiveBoard({
   const clearPage = useCallback(async () => {
     const strokes = strokesByTab[activeTabId]?.[pageNumber] || [];
     if (!strokes.length) return;
-    const ok = await confirm('ล้างหน้านี้ทั้งหมดใช่ไหมคะ? กู้คืนด้วย Undo ไม่ได้', true);
+    const ok = await confirm('ล้างหน้านี้ทั้งหมดใช่ไหมครับ? กู้คืนด้วย Undo ไม่ได้', true);
     if (!ok) return;
     setStrokesByTab(prev => ({
       ...prev,

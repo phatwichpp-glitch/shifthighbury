@@ -157,7 +157,7 @@ function _UpcomingItem({ item, getStudentName, todayStr, nowMins, zoomLink, grou
 
   const handleSendLine = async () => {
     if (!canSendLine(settingsRow)) {
-      toast?.('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error');
+      toast?.('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error');
       return;
     }
     if (item.isGroupCard) {
@@ -187,12 +187,12 @@ function _UpcomingItem({ item, getStudentName, todayStr, nowMins, zoomLink, grou
         } catch (_) {}
       }
       if (sent > 0) toast?.(`ส่ง LINE สำเร็จ ${sent} คน`, 'success');
-      else toast?.('ไม่พบนักเรียนที่เชื่อมต่อ LINE ค่ะ', 'error');
+      else toast?.('ไม่พบนักเรียนที่เชื่อมต่อ LINE ครับ', 'error');
     } else {
       const student = (students || []).find(st => st[STUDENT.ID] === s[SCHEDULE.STUDENT_ID]);
       if (!student) { toast?.('ไม่พบข้อมูลนักเรียน', 'error'); return; }
       const lineUserId = student[STUDENT_LINE_USER_ID];
-      if (!lineUserId) { toast?.(`${student[STUDENT.NAME] || ''} ยังไม่ได้เชื่อมต่อ LINE ค่ะ`, 'error'); return; }
+      if (!lineUserId) { toast?.(`${student[STUDENT.NAME] || ''} ยังไม่ได้เชื่อมต่อ LINE ครับ`, 'error'); return; }
       const stuCode = buildStudentLoginCode(student[STUDENT.NICKNAME], student[STUDENT.NAME]);
       const classCode = settingsRow?.[SETTINGS.CLASS_CODE] || '';
       const portalUrl = stuCode

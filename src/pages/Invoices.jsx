@@ -62,7 +62,7 @@ export function Invoices({ accessToken, dbId, toast }) {
   const logoUrl        = settingsRow?.[SETTINGS.LOGO_URL]        || '';
   const instituteName  = settingsRow?.[SETTINGS.INSTITUTE_NAME]  || 'SHIFTHIGHBURY';
   const paymentMethods = settingsRow?.[SETTINGS.PAYMENT_METHODS] || 'กรุณาตั้งค่าช่องทางการชำระเงินในเมนูตั้งค่า';
-  const footerNote     = settingsRow?.[SETTINGS.FOOTER_NOTE]     || 'ขอขอบคุณที่ไว้วางใจให้เราดูแลการเรียนของคุณนะคะ';
+  const footerNote     = settingsRow?.[SETTINGS.FOOTER_NOTE]     || 'ขอขอบคุณที่ไว้วางใจให้เราดูแลการเรียนของคุณนะครับ';
   const signatureUrl   = settingsRow?.[SETTINGS.SIGNATURE_URL]   || '';
 
   const [isSendingLine, setIsSendingLine]                 = useState(false);
@@ -143,8 +143,8 @@ export function Invoices({ accessToken, dbId, toast }) {
     if (!student) return toast('ไม่พบข้อมูลนักเรียน', 'error');
     const lineUserId = student[STUDENT_LINE_USER_ID] || '';
     if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID — กรอกได้ที่หน้า "นักเรียน" → แก้ไข', 'error');
-    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error');
-    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ค่ะ', 'error');
+    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error');
+    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ครับ', 'error');
     setSendingLineForId(inv[INVOICE.ID]);
     setIsSendingLine(true);
     const items = getInvoiceLineItems(inv);
@@ -165,8 +165,8 @@ export function Invoices({ accessToken, dbId, toast }) {
     const student = students.find(s => s[STUDENT.ID] === previewData.studentId);
     const lineUserId = student ? (student[STUDENT_LINE_USER_ID] || '') : '';
     if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID — กรอกได้ที่หน้า "นักเรียน" → แก้ไข', 'error');
-    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error');
-    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ค่ะ', 'error');
+    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error');
+    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ครับ', 'error');
     setIsSendingLineImage(true);
     const sentAt = new Date().toLocaleString('th-TH');
     const ok = await runWithFeedback(async () => {
@@ -185,8 +185,8 @@ export function Invoices({ accessToken, dbId, toast }) {
     const student = students.find(s => s[STUDENT.ID] === inv[INVOICE.STUDENT_ID]);
     const lineUserId = student ? (student[STUDENT_LINE_USER_ID] || '') : '';
     if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID — กรอกได้ที่หน้า "นักเรียน" → แก้ไข', 'error');
-    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error');
-    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ค่ะ', 'error');
+    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error');
+    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ครับ', 'error');
     setIsSendingReceiptImage(true);
     const sentAt = new Date().toLocaleString('th-TH');
     const ok = await runWithFeedback(async () => {
@@ -246,11 +246,11 @@ export function Invoices({ accessToken, dbId, toast }) {
   };
 
   const handleBroadcastLine = async () => {
-    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error');
+    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error');
     const msg = prompt('พิมพ์ข้อความที่อยากส่งถึงนักเรียนทุกคน:');
     if (!msg) return;
     const allUserIds = students.filter(s => s[STUDENT.DELETED] !== 'TRUE' && s[STUDENT_LINE_USER_ID]).map(s => s[STUDENT_LINE_USER_ID]);
-    if (allUserIds.length === 0) return toast('ยังไม่มีนักเรียนคนไหนที่มี LINE User ID ค่ะ', 'error');
+    if (allUserIds.length === 0) return toast('ยังไม่มีนักเรียนคนไหนที่มี LINE User ID ครับ', 'error');
     setIsSendingLine(true);
     await runWithFeedback(() => sendLineMulticast(lineWorkerUrl, lineToken, allUserIds, msg), toast, `ส่ง LINE ถึง ${allUserIds.length} คนสำเร็จ!`);
     setIsSendingLine(false);
@@ -258,8 +258,8 @@ export function Invoices({ accessToken, dbId, toast }) {
 
   const handleIssueReceipt = async (invoiceItem) => {
     const inv = invoiceItem.data;
-    if (hasReceipt(inv[INVOICE.ID])) return toast('ออกใบเสร็จสำหรับบิลนี้ไปแล้วค่ะ', 'error');
-    const ok = await confirm(`ออกใบเสร็จสำหรับบิล ${inv[INVOICE.NUMBER]} ยอด ${safeFloat(inv[INVOICE.TOTAL]).toLocaleString()} ฿ ใช่ไหมคะ?`);
+    if (hasReceipt(inv[INVOICE.ID])) return toast('ออกใบเสร็จสำหรับบิลนี้ไปแล้วครับ', 'error');
+    const ok = await confirm(`ออกใบเสร็จสำหรับบิล ${inv[INVOICE.NUMBER]} ยอด ${safeFloat(inv[INVOICE.TOTAL]).toLocaleString()} ฿ ใช่ไหมครับ?`);
     if (!ok) return;
     setIsIssuingReceipt(true);
     const recCount = receipts.filter(r => (r[RECEIPT.NUMBER] || '').startsWith('REC-')).length;
@@ -284,7 +284,7 @@ export function Invoices({ accessToken, dbId, toast }) {
     const receiptForThisInvoice = getReceiptForInvoice(invoiceId);
     const ok = await confirm(
       receiptForThisInvoice
-        ? `บิลนี้ออกใบเสร็จ ${receiptForThisInvoice[RECEIPT.NUMBER]} ไปแล้ว — ยกเลิกบิลจะไม่ลบใบเสร็จนั้น กรุณาจัดการบัญชี/แจ้งลูกค้าเองด้วย ยืนยันยกเลิกใช่ไหมคะ? คาบเรียนทั้งหมดจะถูกคืนกลับเป็น "รอออกบิล"`
+        ? `บิลนี้ออกใบเสร็จ ${receiptForThisInvoice[RECEIPT.NUMBER]} ไปแล้ว — ยกเลิกบิลจะไม่ลบใบเสร็จนั้น กรุณาจัดการบัญชี/แจ้งลูกค้าเองด้วย ยืนยันยกเลิกใช่ไหมครับ? คาบเรียนทั้งหมดจะถูกคืนกลับเป็น "รอออกบิล"`
         : 'ยืนยันยกเลิกใบแจ้งค่าเรียนใบนี้? คาบเรียนทั้งหมดจะถูกคืนกลับเป็น "รอออกบิล"',
       true
     );
@@ -299,7 +299,7 @@ export function Invoices({ accessToken, dbId, toast }) {
     // ส่วน UNPAID<->SENT สลับกันบ่อยและความเสี่ยงต่ำ ไม่ต้อง confirm ทุกครั้ง
     const currentStatus = invoices[arrayIndex]?.[INVOICE.STATUS] || 'UNPAID';
     if (newStatus === 'PAID' || currentStatus === 'PAID') {
-      const ok = await confirm(`เปลี่ยนสถานะบิลเป็น "${newStatus}" ยืนยันใช่ไหมคะ?`);
+      const ok = await confirm(`เปลี่ยนสถานะบิลเป็น "${newStatus}" ยืนยันใช่ไหมครับ?`);
       if (!ok) return;
     }
     const success = await runWithFeedback(() => updateInvoiceStatus(accessToken, dbId, arrayIndex + 2, newStatus), toast, 'อัปเดตสถานะเรียบร้อย!');
@@ -423,7 +423,7 @@ export function Invoices({ accessToken, dbId, toast }) {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {filteredInvoices.length === 0 ? (
-                <tr><td colSpan={6} className="text-center py-16"><Search className="w-8 h-8 mx-auto mb-2 text-gray-300" /><p className="text-[15px] font-semibold text-gray-500">ไม่พบบิลที่ตรงกับเงื่อนไข</p><p className="text-[13px] text-gray-400 mt-1">ลองเปลี่ยน filter หรือล้างคำค้นหาดูค่ะ</p></td></tr>
+                <tr><td colSpan={6} className="text-center py-16"><Search className="w-8 h-8 mx-auto mb-2 text-gray-300" /><p className="text-[15px] font-semibold text-gray-500">ไม่พบบิลที่ตรงกับเงื่อนไข</p><p className="text-[13px] text-gray-400 mt-1">ลองเปลี่ยน filter หรือล้างคำค้นหาดูครับ</p></td></tr>
               ) : filteredInvoices.map((item, idx) => {
                 const inv         = item.data;
                 const student     = students.find(s => s[STUDENT.ID] === inv[INVOICE.STUDENT_ID]);

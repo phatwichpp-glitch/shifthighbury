@@ -63,7 +63,7 @@ function LineQuotaPanel({ schedules, students, masterEnabled, toast, toggles, on
         <div className="flex-1 min-w-0">
           <p className={`text-[13px] font-bold ${statusTextColor}`}>สถานะ: {statusLabel} — {total} / {QUOTA} ข้อความ ({Math.round(pct)}%)</p>
           {isOver && <p className={`text-[12px] mt-0.5 ${statusTextColor}`}>เกินโควตา {over} ข้อความ — ปิดบางระบบด้านล่าง หรืออัปเกรด LINE OA (800 ฿/เดือน → 3,000 ข้อความ)</p>}
-          {isWarning && <p className={`text-[12px] mt-0.5 ${statusTextColor}`}>บัฟเฟอร์เหลือ {remaining} ข้อความ — แนะนำส่งบิลเป็น<a href="#" className="underline font-semibold hover:opacity-75" onClick={e => { e.preventDefault(); toast?.('คัดลอกลิงก์บิลแล้ว — ไปวางใน LINE ด้วยตนเองได้เลยค่ะ', 'info'); }}>ลิงก์แทนการส่งอัตโนมัติ</a></p>}
+          {isWarning && <p className={`text-[12px] mt-0.5 ${statusTextColor}`}>บัฟเฟอร์เหลือ {remaining} ข้อความ — แนะนำส่งบิลเป็น<a href="#" className="underline font-semibold hover:opacity-75" onClick={e => { e.preventDefault(); toast?.('คัดลอกลิงก์บิลแล้ว — ไปวางใน LINE ด้วยตนเองได้เลยครับ', 'info'); }}>ลิงก์แทนการส่งอัตโนมัติ</a></p>}
           {isSafe && <p className={`text-[12px] mt-0.5 ${statusTextColor}`}>เหลือโควตา {remaining} ข้อความ — ใช้ได้ตลอดเดือนสบายๆ</p>}
         </div>
       </div>
@@ -320,7 +320,7 @@ export function Settings({ accessToken, dbId, toast }) {
         try { localStorage.removeItem('zw_zoom_session'); } catch {}
       }
       if (workerSyncFailed) {
-        toast('บันทึกลง Google Sheet สำเร็จ แต่ซิงก์ค่า LINE/รหัสห้องเรียน/ฟีเจอร์ไปยัง Cloudflare Worker ไม่สำเร็จ — เช็คว่า Worker (VITE_WEBRTC_SIGNALING_URL) ทำงานอยู่แล้วกดบันทึกอีกครั้งค่ะ', 'error');
+        toast('บันทึกลง Google Sheet สำเร็จ แต่ซิงก์ค่า LINE/รหัสห้องเรียน/ฟีเจอร์ไปยัง Cloudflare Worker ไม่สำเร็จ — เช็คว่า Worker (VITE_WEBRTC_SIGNALING_URL) ทำงานอยู่แล้วกดบันทึกอีกครั้งครับ', 'error');
       }
       refresh({ force: true });
     }
@@ -329,7 +329,7 @@ export function Settings({ accessToken, dbId, toast }) {
 
   const handleFileUpload = async (file, maxW, maxH, field, setUploading) => {
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) { toast('รูปใหญ่เกิน 2MB ค่ะ', 'error'); return; }
+    if (file.size > 2 * 1024 * 1024) { toast('รูปใหญ่เกิน 2MB ครับ', 'error'); return; }
     setUploading(true);
     try { const url = await resizeToBase64(file, maxW, maxH); setFormData(f => ({ ...f, [field]: url })); }
     catch (err) { toast('อัปโหลดไม่สำเร็จ: ' + err.message, 'error'); }
@@ -408,7 +408,7 @@ export function Settings({ accessToken, dbId, toast }) {
                 </div>
               </div>
             </div>
-            <div><label className={labelClasses}>ข้อความท้ายใบเสร็จ</label><textarea value={formData.footer_note} onChange={e => setFormData(f => ({ ...f, footer_note: e.target.value }))} className={inputClasses} rows="2" placeholder="เช่น ขอบคุณที่ใช้บริการค่ะ" /></div>
+            <div><label className={labelClasses}>ข้อความท้ายใบเสร็จ</label><textarea value={formData.footer_note} onChange={e => setFormData(f => ({ ...f, footer_note: e.target.value }))} className={inputClasses} rows="2" placeholder="เช่น ขอบคุณที่ใช้บริการครับ" /></div>
             <div>
               <label className={labelClasses}>รูปลายเซ็น (แสดงในใบเสร็จรับเงิน)</label>
               <div className="flex items-start gap-4">
@@ -595,7 +595,7 @@ export function Settings({ accessToken, dbId, toast }) {
             {formData.zoom_auto_reminder && (!formData.teacher_line_user_id || !formData.zoom_link) && (
               <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-[10px]">
                 <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                <p className="text-[13px] text-amber-700 font-medium">เปิดแจ้งเตือนครูไว้ แต่ยังกรอกลิงก์ Zoom หรือ LINE User ID ของครูไม่ครบ — ระบบจะยังไม่ส่งจนกว่าจะกรอกครบค่ะ</p>
+                <p className="text-[13px] text-amber-700 font-medium">เปิดแจ้งเตือนครูไว้ แต่ยังกรอกลิงก์ Zoom หรือ LINE User ID ของครูไม่ครบ — ระบบจะยังไม่ส่งจนกว่าจะกรอกครบครับ</p>
               </div>
             )}
           </div>

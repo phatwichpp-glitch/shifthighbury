@@ -465,7 +465,7 @@ export default function DaySchedulePanel({
                   <span>{item.data[SCHEDULE.TIME_START]}–{item.data[SCHEDULE.TIME_END]} น.</span>
                 </div>
               ))}
-              <p className="text-[11px] text-red-400 mt-1.5">ยังบันทึกได้ แต่แนะนำให้ปรับเวลาค่ะ</p>
+              <p className="text-[11px] text-red-400 mt-1.5">ยังบันทึกได้ แต่แนะนำให้ปรับเวลาครับ</p>
             </div>
           )}
           {conflicts.length === 0 && formData.time_start && formData.time_end && formData.time_start < formData.time_end && (
@@ -762,10 +762,10 @@ export default function DaySchedulePanel({
             };
 
             const handleSendPortalLine = async () => {
-              if (!canSendLine(settingsRow)) { toast?.('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error'); return; }
+              if (!canSendLine(settingsRow)) { toast?.('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error'); return; }
               if (!schedStudent) { toast?.('ไม่พบข้อมูลนักเรียน', 'error'); return; }
               const lineUserId = schedStudent[STUDENT_LINE_USER_ID];
-              if (!lineUserId) { toast?.(`${schedStudent[STUDENT.NAME] || ''} ยังไม่ได้เชื่อมต่อ LINE ค่ะ`, 'error'); return; }
+              if (!lineUserId) { toast?.(`${schedStudent[STUDENT.NAME] || ''} ยังไม่ได้เชื่อมต่อ LINE ครับ`, 'error'); return; }
               try {
                 await sendLineMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineUserId, portalShareMsg);
                 toast?.('ส่ง LINE สำเร็จ', 'success');
@@ -773,7 +773,7 @@ export default function DaySchedulePanel({
             };
 
             const handleSendGroupLine = async () => {
-              if (!canSendLine(settingsRow)) { toast?.('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error'); return; }
+              if (!canSendLine(settingsRow)) { toast?.('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error'); return; }
               let sent = 0;
               for (const m of item.groupMembers) {
                 const mStudent = students.find(st => st[STUDENT.ID] === m.data[SCHEDULE.STUDENT_ID]);
@@ -798,7 +798,7 @@ export default function DaySchedulePanel({
                 } catch (_) {}
               }
               if (sent > 0) toast?.(`ส่ง LINE สำเร็จ ${sent} คน`, 'success');
-              else toast?.('ไม่พบนักเรียนที่เชื่อมต่อ LINE ค่ะ', 'error');
+              else toast?.('ไม่พบนักเรียนที่เชื่อมต่อ LINE ครับ', 'error');
             };
 
             // Rank-based: the Nth session for a student maps to the Nth schedule (by start time).

@@ -40,7 +40,7 @@ export function Feedback({ accessToken, dbId, toast }) {
       () => addFeedback(accessToken, dbId, [
         'FB-' + Date.now(), localDateStr(), category, msg, 'NEW', new Date().toLocaleString('th-TH'),
       ]),
-      toast, 'บันทึกข้อเสนอแนะแล้ว — AI จะอ่านในรอบพัฒนาถัดไปค่ะ'
+      toast, 'บันทึกข้อเสนอแนะแล้ว — AI จะอ่านในรอบพัฒนาถัดไปครับ'
     );
     if (ok) { setMessage(''); refresh({ force: true }); }
     setIsSubmitting(false);
@@ -90,7 +90,7 @@ export function Feedback({ accessToken, dbId, toast }) {
       </div>
 
       <StateDisplay loading={loading} error={error} onRetry={() => refresh({ force: true })} empty={items.length === 0}
-        emptyMessage={'ยังไม่มีข้อเสนอแนะค่ะ — นึกอะไรออกระหว่างใช้งาน จดไว้ได้เลย'}>
+        emptyMessage={'ยังไม่มีข้อเสนอแนะครับ — นึกอะไรออกระหว่างใช้งาน จดไว้ได้เลย'}>
         <div className="space-y-3">
           {items.map(item => {
             const done = item.row[FEEDBACK.STATUS] === 'DONE';

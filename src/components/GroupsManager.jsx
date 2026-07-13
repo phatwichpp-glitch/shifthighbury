@@ -167,7 +167,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
     e.preventDefault();
     const memberIds = groupStudentIds(billingGroup.data);
     const hasAny = memberIds.some((sid) => (groupSelectedIds[sid] || []).length > 0);
-    if (!hasAny) return toast('กรุณาเลือกคาบเรียนอย่างน้อย 1 คาบค่ะ', 'error');
+    if (!hasAny) return toast('กรุณาเลือกคาบเรียนอย่างน้อย 1 คาบครับ', 'error');
 
     setIsSubmitting(true);
     const dateNow = new Date().toLocaleDateString('th-TH');
@@ -304,7 +304,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
     const rate     = safeFloat(stu?.[STUDENT.RATE] || 0);
     const hoursFromAmount = rate > 0 ? Math.round((safeFloat(topUpMoneyAmount) / rate) * 100) / 100 : 0;
     const effectiveHours  = topUpMode === 'amount' ? hoursFromAmount : safeFloat(topUpAmount);
-    if (effectiveHours <= 0) return toast('กรุณากรอกจำนวนที่ถูกต้องค่ะ', 'error');
+    if (effectiveHours <= 0) return toast('กรุณากรอกจำนวนที่ถูกต้องครับ', 'error');
     setIsToppingUp(true);
     const current  = safeFloat(stu?.[STUDENT.PACKAGE_HOURS]);
     const newHours = current + effectiveHours;
@@ -328,8 +328,8 @@ function GroupsManager({ accessToken, dbId, toast }) {
     const lineToken    = settingsRow?.[SETTINGS.LINE_TOKEN]      || '';
     const lineWorkerUrl = settingsRow?.[SETTINGS.LINE_WORKER_URL] || '';
     const zoomLink     = settingsRow?.[SETTINGS.ZOOM_LINK]        || '';
-    if (!lineToken || !lineWorkerUrl) return toast('ยังไม่ได้ตั้งค่า LINE OA ค่ะ', 'error');
-    if (!zoomLink)                    return toast('ยังไม่ได้ตั้งค่าลิงก์ Zoom ค่ะ', 'error');
+    if (!lineToken || !lineWorkerUrl) return toast('ยังไม่ได้ตั้งค่า LINE OA ครับ', 'error');
+    if (!zoomLink)                    return toast('ยังไม่ได้ตั้งค่าลิงก์ Zoom ครับ', 'error');
     const lineGroupId = group.data[GROUP.LINE_GROUP_ID] || '';
     const grpName     = group.data[GROUP.NAME] || 'กลุ่ม';
     if (lineGroupId) {
@@ -339,7 +339,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
       });
       await runWithFeedback(
         () => sendLineMessage(lineWorkerUrl, lineToken, lineGroupId, msg),
-        toast, `ส่งลิงก์ Zoom เข้ากลุ่ม LINE "${grpName}" แล้วค่ะ`,
+        toast, `ส่งลิงก์ Zoom เข้ากลุ่ม LINE "${grpName}" แล้วครับ`,
       );
     } else {
       const memberIds = groupStudentIds(group.data);
@@ -354,7 +354,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
         });
         try { await sendLineMessage(lineWorkerUrl, lineToken, target, msg); sent++; } catch {}
       }
-      toast(`ส่งลิงก์ Zoom DM ${sent}/${memberIds.length} คนแล้วค่ะ`, sent > 0 ? 'success' : 'error');
+      toast(`ส่งลิงก์ Zoom DM ${sent}/${memberIds.length} คนแล้วครับ`, sent > 0 ? 'success' : 'error');
     }
   };
 
@@ -451,7 +451,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
   const handleDeleteClick = async (group) => {
     const memberCount = groupStudentIds(group.data).length;
     const ok = await confirm(
-      `ลบกลุ่ม "${group.data[GROUP.NAME]}" (${memberCount} คน) ใช่ไหมคะ? ตารางสอน/ประวัติของสมาชิกแต่ละคนจะไม่หายไปเลย — แค่ยกเลิกการจัดกลุ่มเฉยๆ ค่ะ`,
+      `ลบกลุ่ม "${group.data[GROUP.NAME]}" (${memberCount} คน) ใช่ไหมครับ? ตารางสอน/ประวัติของสมาชิกแต่ละคนจะไม่หายไปเลย — แค่ยกเลิกการจัดกลุ่มเฉยๆ ครับ`,
       true,
     );
     if (!ok) return;
@@ -588,7 +588,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
         <div className="text-center py-16 bg-white border border-gray-200 rounded-[16px]">
           <p className="text-[16px] text-gray-500">ยังไม่มีกลุ่มนักเรียน</p>
           <p className="text-[13px] text-gray-400 mt-1">
-            กดปุ่ม "+ สร้างกลุ่มใหม่" ด้านบนเพื่อเริ่มจัดกลุ่มได้เลยค่ะ
+            กดปุ่ม "+ สร้างกลุ่มใหม่" ด้านบนเพื่อเริ่มจัดกลุ่มได้เลยครับ
           </p>
         </div>
       ) : (
@@ -656,7 +656,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
                           ? `${window.location.origin}/line-connect?sid=${firstStu[STUDENT.ID]}&db=${dbId}&name=${encodeURIComponent(firstStu[STUDENT.NAME])}&oa=${encodeURIComponent(oaName)}`
                           : '';
                         const copyMsg  = firstStu
-                          ? `📲 สวัสดีค่ะ 😊\n\nกดลิงก์แล้วส่งรหัสในกลุ่มนี้ เพื่อเชื่อมต่อกลุ่มกับระบบของ${TEACHER_ROLE_LABEL}นะคะ\n\n${linkUrl}\n\n💡 กดลิงก์ → copy รหัส → ส่งในกลุ่มนี้เลยค่ะ`
+                          ? `📲 สวัสดีครับ 😊\n\nกดลิงก์แล้วส่งรหัสในกลุ่มนี้ เพื่อเชื่อมต่อกลุ่มกับระบบของ${TEACHER_ROLE_LABEL}นะครับ\n\n${linkUrl}\n\n💡 กดลิงก์ → copy รหัส → ส่งในกลุ่มนี้เลยครับ`
                           : '';
                         if (group.data[GROUP.LINE_GROUP_ID]) {
                           return (
@@ -666,7 +666,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
                               </span>
                               {linkUrl && (
                                 <button
-                                  onClick={() => { copyText(linkUrl); toast('คัดลอกลิงก์แล้ว — ส่งเข้ากลุ่ม LINE ได้เลยค่ะ', 'success'); }}
+                                  onClick={() => { copyText(linkUrl); toast('คัดลอกลิงก์แล้ว — ส่งเข้ากลุ่ม LINE ได้เลยครับ', 'success'); }}
                                   className="text-[10px] text-gray-400 hover:text-blue-600 underline text-left"
                                 >
                                   เชื่อมต่อใหม่
@@ -680,7 +680,7 @@ function GroupsManager({ accessToken, dbId, toast }) {
                             <span className="text-[11px] text-amber-600 font-medium inline-flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> ยังไม่เชื่อมต่อ</span>
                             {linkUrl && (
                               <button
-                                onClick={() => { copyText(copyMsg); toast(`คัดลอกลิงก์กลุ่ม ${group.data[GROUP.NAME]} แล้ว — วางส่งเข้ากลุ่ม LINE ได้เลยค่ะ`, 'success'); }}
+                                onClick={() => { copyText(copyMsg); toast(`คัดลอกลิงก์กลุ่ม ${group.data[GROUP.NAME]} แล้ว — วางส่งเข้ากลุ่ม LINE ได้เลยครับ`, 'success'); }}
                                 className="inline-flex items-center gap-1 px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-semibold rounded-[6px] transition-all active:scale-95 whitespace-nowrap"
                               >
                                 <Copy className="w-3 h-3" /> คัดลอกลิงก์เชื่อมต่อ

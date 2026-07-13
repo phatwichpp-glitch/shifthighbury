@@ -336,10 +336,10 @@ export function GroupPortal({ group, members = [], sessions = [], schedules = []
         fetchBookingRequests();
         setTimeout(() => setBookingSuccess(false), 4000);
       } else {
-        setBookingError('Could not send your booking — please try again · ส่งคำขอจองไม่สำเร็จ ลองใหม่นะคะ');
+        setBookingError('Could not send your booking — please try again · ส่งคำขอจองไม่สำเร็จ ลองใหม่นะครับ');
       }
     } catch (_) {
-      setBookingError('Could not send your booking — please check your internet and try again · ส่งไม่สำเร็จ ลองใหม่นะคะ');
+      setBookingError('Could not send your booking — please check your internet and try again · ส่งไม่สำเร็จ ลองใหม่นะครับ');
     }
     setSubmittingBooking(false);
   };

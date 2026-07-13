@@ -40,7 +40,7 @@ export function useZoomReminder({ enabledBefore, enabledExtend, todaySchedules, 
           const diffBefore = startMins - nowMins;
           if (!notifiedRef.current.has(beforeKey) && diffBefore <= 15 && diffBefore >= 0) {
             notifiedRef.current.add(beforeKey);
-            const text = `อีก ${diffBefore} นาทีถึงเวลาเรียนของ ${studentName} แล้วค่ะ`;
+            const text = `อีก ${diffBefore} นาทีถึงเวลาเรียนของ ${studentName} แล้วครับ`;
             toast(text, 'info');
             if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
               try { new Notification('ใกล้ถึงเวลาคลาสแล้ว', { body: `${studentName} · ${s[SCHEDULE.TIME_START]}–${s[SCHEDULE.TIME_END]} น.` }); } catch { /* ignore */ }
@@ -55,10 +55,10 @@ export function useZoomReminder({ enabledBefore, enabledExtend, todaySchedules, 
           const diffExtend = nowMins - startMins;
           if (!notifiedRef.current.has(extendKey) && diffExtend >= 30 && diffExtend <= 35) {
             notifiedRef.current.add(extendKey);
-            const text = `⏳ ${studentName} สอนมาแล้วประมาณ 30 นาที — ใกล้ครบ 40 นาทีของ Zoom Free แล้วค่ะ กด End Meeting แล้วเปิดลิงก์เดิมใหม่ได้เลย จะไม่ติดรอ 10 นาที`;
+            const text = `⏳ ${studentName} สอนมาแล้วประมาณ 30 นาที — ใกล้ครบ 40 นาทีของ Zoom Free แล้วครับ กด End Meeting แล้วเปิดลิงก์เดิมใหม่ได้เลย จะไม่ติดรอ 10 นาที`;
             toast(text, 'info');
             if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-              try { new Notification('⏳ ใกล้ครบ 40 นาทีแล้ว', { body: `${studentName} · กด End Meeting แล้วเปิดลิงก์เดิมใหม่ทันทีนะคะ` }); } catch { /* ignore */ }
+              try { new Notification('⏳ ใกล้ครบ 40 นาทีแล้ว', { body: `${studentName} · กด End Meeting แล้วเปิดลิงก์เดิมใหม่ทันทีนะครับ` }); } catch { /* ignore */ }
             }
           }
         }

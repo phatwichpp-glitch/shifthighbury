@@ -59,12 +59,12 @@ export function Sessions({ accessToken, dbId, toast }) {
   const handleCancelEdit = () => { setEditingSession(null); setShowForm(false); setFormData({ studentIds: [], date: localDateStr(), subject: '', hours: '', note: '' }); };
 
   const handleDeleteClick = async (session, rowIndex) => {
-    if (session[SESSION.INVOICED] === 'TRUE') return toast('ไม่สามารถลบคาบที่ออกบิลแล้วได้ กรุณายกเลิกบิลก่อนค่ะ', 'error');
+    if (session[SESSION.INVOICED] === 'TRUE') return toast('ไม่สามารถลบคาบที่ออกบิลแล้วได้ กรุณายกเลิกบิลก่อนครับ', 'error');
     const isPrepaid = session[SESSION.INVOICED] === 'PREPAID';
     const ok = await confirm(
       isPrepaid
-        ? `ลบคาบเรียนวันที่ ${session[SESSION.DATE]} (${session[SESSION.SUBJECT]}) ใช่ไหมคะ? — ระบบจะคืนชั่วโมงแพ็กเกจ ${session[SESSION.HOURS]} ชม. ให้นักเรียนอัตโนมัติ`
-        : `ลบคาบเรียนวันที่ ${session[SESSION.DATE]} (${session[SESSION.SUBJECT]}) ใช่ไหมคะ?`,
+        ? `ลบคาบเรียนวันที่ ${session[SESSION.DATE]} (${session[SESSION.SUBJECT]}) ใช่ไหมครับ? — ระบบจะคืนชั่วโมงแพ็กเกจ ${session[SESSION.HOURS]} ชม. ให้นักเรียนอัตโนมัติ`
+        : `ลบคาบเรียนวันที่ ${session[SESSION.DATE]} (${session[SESSION.SUBJECT]}) ใช่ไหมครับ?`,
       true
     );
     if (!ok) return;
@@ -96,7 +96,7 @@ export function Sessions({ accessToken, dbId, toast }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!editingSession && isFutureDate) {
-      const ok = await confirm(`วันที่ ${formData.date} อยู่ในอนาคต ยืนยันบันทึกคาบเรียนล่วงหน้าใช่ไหมคะ?`);
+      const ok = await confirm(`วันที่ ${formData.date} อยู่ในอนาคต ยืนยันบันทึกคาบเรียนล่วงหน้าใช่ไหมครับ?`);
       if (!ok) return;
     }
     setIsSubmitting(true); const dateNow = new Date().toLocaleString('th-TH');
@@ -116,7 +116,7 @@ export function Sessions({ accessToken, dbId, toast }) {
           }
         }
       } else {
-        if (formData.studentIds.length === 0) throw new AppError('กรุณาเลือกนักเรียนอย่างน้อย 1 คนค่ะ');
+        if (formData.studentIds.length === 0) throw new AppError('กรุณาเลือกนักเรียนอย่างน้อย 1 คนครับ');
         const newRows = await Promise.all(formData.studentIds.map(async (studentId, index) => {
           const stu = students.find(s => s[STUDENT.ID] === studentId);
           const pkgRemaining = safeFloat(stu?.[STUDENT.PACKAGE_HOURS]);
@@ -231,7 +231,7 @@ export function Sessions({ accessToken, dbId, toast }) {
         loading={loading}
         error={error}
         empty={validSessions.length === 0}
-        emptyMessage="ยังไม่มีประวัติการสอนค่ะ"
+        emptyMessage="ยังไม่มีประวัติการสอนครับ"
         emptyIcon={<FileText className="w-6 h-6 text-gray-400" strokeWidth={1.5} />}
         onRetry={refresh}
       >

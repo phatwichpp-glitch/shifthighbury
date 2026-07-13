@@ -80,7 +80,7 @@ export function ExportExcel({ accessToken, dbId, toast }) {
 
       const filename = `SHIFTHIGHBURY_${type}_${localDateStr()}.xlsx`;
       XLSX.writeFile(wb, filename);
-      toast(`ดาวน์โหลด ${filename} สำเร็จค่ะ`);
+      toast(`ดาวน์โหลด ${filename} สำเร็จครับ`);
     } catch (err) {
       toast(`เกิดข้อผิดพลาด: ${err.message}`, 'error');
     } finally {

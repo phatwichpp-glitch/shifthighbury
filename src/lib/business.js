@@ -296,11 +296,11 @@ export const buildLineFootnote = ({ portalUrl, studentCode, groupCode, dbId } = 
 };
 
 const DEFAULT_TPL_PORTAL_REMINDER =
-`สวัสดีค่ะคุณ{name} 😊
-ใกล้ถึงเวลาเรียนแล้วนะคะ{subject}
+`สวัสดีครับคุณ{name} 😊
+ใกล้ถึงเวลาเรียนแล้วนะครับ{subject}
 {time}
 
-� เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะคะ:
+� เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะครับ:
 👉 {url}
 Class Code: {class_code}
 Login Code: {code}`;
@@ -327,9 +327,9 @@ const formatMemberNames = (members) => {
 };
 
 const DEFAULT_TPL_GROUP_PORTAL_INTRO =
-`สวัสดีค่ะ {member_names} กลุ่ม{group} 😊
+`สวัสดีครับ {member_names} กลุ่ม{group} 😊
 
-สามารถเข้า Student Portal เพื่อดูตารางเรียน คะแนน และข้อมูลการเรียนได้เลยนะคะ
+สามารถเข้า Student Portal เพื่อดูตารางเรียน คะแนน และข้อมูลการเรียนได้เลยนะครับ
 
 📚 ลิงก์เข้าระบบ:
 👉 {url}
@@ -364,9 +364,9 @@ export const buildGroupPortalIntroMessage = ({ groupName, groupCode, groupMember
 };
 
 const DEFAULT_TPL_PORTAL_INTRO =
-`สวัสดีค่ะคุณ{name} 😊
+`สวัสดีครับคุณ{name} 😊
 
-สามารถเข้า Student Portal เพื่อดูตารางเรียน คะแนน และข้อมูลการเรียนได้เลยนะคะ
+สามารถเข้า Student Portal เพื่อดูตารางเรียน คะแนน และข้อมูลการเรียนได้เลยนะครับ
 
 📚 ลิงก์เข้าระบบ:
 👉 {url}
@@ -380,11 +380,11 @@ export const buildPortalIntroMessage = ({ studentName, portalUrl, stuCode, setti
 };
 
 const DEFAULT_TPL_GROUP_PORTAL_REMINDER =
-`สวัสดีค่ะคุณ{name} 😊
-ใกล้ถึงเวลาเรียน{group}แล้วนะคะ{subject}
+`สวัสดีครับคุณ{name} 😊
+ใกล้ถึงเวลาเรียน{group}แล้วนะครับ{subject}
 {time}
 
-� เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะคะ:
+� เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะครับ:
 👉 {url}
 Class Code: {class_code}
 Login Code: {code}`;
@@ -404,15 +404,15 @@ export const buildGroupPortalMessage = ({ groupName, studentName, subject, timeS
 };
 
 const DEFAULT_TPL_ZOOM =
-`🎥 ลิงก์เข้าเรียน Zoom ค่ะ
+`🎥 ลิงก์เข้าเรียน Zoom ครับ
 
-สวัสดีค่ะคุณ{name} 😊
-ใกล้ถึงเวลาเรียนแล้วนะคะ{subject}
+สวัสดีครับคุณ{name} 😊
+ใกล้ถึงเวลาเรียนแล้วนะครับ{subject}
 {time}
 
 🔗 {url}
 
-กดลิงก์เข้าห้องเรียนได้เลยค่ะ เจอกันนะคะ 🌟`;
+กดลิงก์เข้าห้องเรียนได้เลยครับ เจอกันนะครับ 🌟`;
 
 export const buildZoomMessage = ({ studentName, subject, timeStart, timeEnd, zoomLink, footnote = '', settingsRow }) => {
   const tpl = settingsRow?.[SETTINGS.MSG_ZOOM]?.trim() || DEFAULT_TPL_ZOOM;
@@ -430,7 +430,7 @@ export const buildInvoiceLineMessage = ({ instituteName, studentName, invoiceNum
     '🧾 ใบแจ้งชำระค่าเรียน',
     `สถาบัน: ${instituteName}`,
     '',
-    `เรียนคุณ ${studentName} ค่ะ`,
+    `เรียนคุณ ${studentName} ครับ`,
     `เลขที่บิล: ${invoiceNumber}`,
     date ? `วันที่ออกบิล: ${date}` : '',
     dueDate ? `กำหนดชำระ: ${dueDate}` : '',
@@ -445,10 +445,10 @@ export const buildInvoiceLineMessage = ({ instituteName, studentName, invoiceNum
   lines.push(`ยอดชำระทั้งหมด: ${safeFloat(totalAmount).toLocaleString()} บาท`);
   if (status === 'PAID') {
     lines.push('');
-    lines.push('✅ สถานะ: ชำระเงินเรียบร้อยแล้วค่ะ ขอบคุณค่ะ 🙏');
+    lines.push('✅ สถานะ: ชำระเงินเรียบร้อยแล้วครับ ขอบคุณครับ 🙏');
   } else {
     lines.push('');
-    lines.push('กรุณาโอนชำระภายในกำหนดด้วยนะคะ ขอบคุณค่ะ 🙏');
+    lines.push('กรุณาโอนชำระภายในกำหนดด้วยนะครับ ขอบคุณครับ 🙏');
   }
   lines.push('');
   lines.push(`— ${instituteName}`);

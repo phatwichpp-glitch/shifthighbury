@@ -75,7 +75,7 @@ export function Groups({ accessToken, dbId, toast }) {
     e.preventDefault();
     const memberIds = groupStudentIds(billingGroup.data);
     const hasAny = memberIds.some(sid => (groupSelectedIds[sid] || []).length > 0);
-    if (!hasAny) return toast('กรุณาเลือกคาบเรียนอย่างน้อย 1 คาบค่ะ', 'error');
+    if (!hasAny) return toast('กรุณาเลือกคาบเรียนอย่างน้อย 1 คาบครับ', 'error');
     setIsSubmitting(true);
     const dateNow = localDateStr();
     const vatRate = safeFloat(settingsRow?.[SETTINGS.TAX_RATE] || 0) / 100;
@@ -121,7 +121,7 @@ export function Groups({ accessToken, dbId, toast }) {
     const rate = safeFloat(stu?.[STUDENT.RATE] || 0);
     const hoursFromAmount = rate > 0 ? Math.round((safeFloat(topUpMoneyAmount) / rate) * 100) / 100 : 0;
     const effectiveHours = topUpMode === 'amount' ? hoursFromAmount : safeFloat(topUpAmount);
-    if (effectiveHours <= 0) return toast('กรุณากรอกจำนวนที่ถูกต้องค่ะ', 'error');
+    if (effectiveHours <= 0) return toast('กรุณากรอกจำนวนที่ถูกต้องครับ', 'error');
     setIsToppingUp(true);
     const current = safeFloat(stu?.[STUDENT.PACKAGE_HOURS]);
     const newHours = current + effectiveHours;
@@ -135,7 +135,7 @@ export function Groups({ accessToken, dbId, toast }) {
     if (!groupPkgModal) return;
     const { group, grpIdx } = groupPkgModal;
     const hoursToAdd = safeFloat(gpkgHoursToAdd);
-    if (hoursToAdd <= 0) return toast('กรุณากรอกจำนวนชั่วโมงที่ถูกต้องค่ะ', 'error');
+    if (hoursToAdd <= 0) return toast('กรุณากรอกจำนวนชั่วโมงที่ถูกต้องครับ', 'error');
     setGpkgIsToppingUp(true);
     const currentTotal = safeFloat(group.data[GROUP.PACKAGE_HOURS]);
     const currentRemaining = safeFloat(group.data[GROUP.PACKAGE_HOURS_REMAINING]);
@@ -150,7 +150,7 @@ export function Groups({ accessToken, dbId, toast }) {
   };
 
   const handleSendGroupReminder = async (group) => {
-    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error');
+    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error');
     const lineToken = settingsRow[SETTINGS.LINE_TOKEN];
     const lineWorkerUrl = settingsRow[SETTINGS.LINE_WORKER_URL];
     const lineGroupId = group.data[GROUP.LINE_GROUP_ID] || '';
@@ -160,7 +160,7 @@ export function Groups({ accessToken, dbId, toast }) {
     if (lineGroupId) {
       const groupPortalUrl = classCode ? `${portalBase}?class=${encodeURIComponent(classCode)}` : portalBase;
       const msg = buildGroupPortalMessage({ groupName: grpName, studentName: grpName, subject: group.data[GROUP.DEFAULT_SUBJECT] || '', timeStart: '', timeEnd: '', portalUrl: groupPortalUrl, stuCode: '', settingsRow });
-      await runWithFeedback(() => sendLineMessage(lineWorkerUrl, lineToken, lineGroupId, msg), toast, `ส่งแจ้งเตือนเข้ากลุ่ม LINE "${grpName}" แล้วค่ะ`);
+      await runWithFeedback(() => sendLineMessage(lineWorkerUrl, lineToken, lineGroupId, msg), toast, `ส่งแจ้งเตือนเข้ากลุ่ม LINE "${grpName}" แล้วครับ`);
     } else {
       const memberIds = groupStudentIds(group.data);
       let sent = 0;
@@ -173,7 +173,7 @@ export function Groups({ accessToken, dbId, toast }) {
         const msg = buildGroupPortalMessage({ groupName: grpName, studentName: stu[STUDENT.NAME], subject: group.data[GROUP.DEFAULT_SUBJECT] || '', timeStart: '', timeEnd: '', portalUrl, stuCode, settingsRow });
         try { await sendLineMessage(lineWorkerUrl, lineToken, target, msg); sent++; } catch (e) {}
       }
-      toast(`ส่งแจ้งเตือน DM ${sent}/${memberIds.length} คนแล้วค่ะ`, sent > 0 ? 'success' : 'error');
+      toast(`ส่งแจ้งเตือน DM ${sent}/${memberIds.length} คนแล้วครับ`, sent > 0 ? 'success' : 'error');
     }
   };
 
@@ -236,7 +236,7 @@ export function Groups({ accessToken, dbId, toast }) {
     const memberCount = groupStudentIds(group.data).length;
     const pkgRemaining = safeFloat(group.data[GROUP.PACKAGE_HOURS_REMAINING]);
     const ok = await confirm(
-      `ลบกลุ่ม "${group.data[GROUP.NAME]}" (${memberCount} คน) ใช่ไหมคะ? ตารางสอน/ประวัติของสมาชิกแต่ละคนจะไม่หายไปเลย — แค่ยกเลิกการจัดกลุ่มเฉยๆ ค่ะ`
+      `ลบกลุ่ม "${group.data[GROUP.NAME]}" (${memberCount} คน) ใช่ไหมครับ? ตารางสอน/ประวัติของสมาชิกแต่ละคนจะไม่หายไปเลย — แค่ยกเลิกการจัดกลุ่มเฉยๆ ครับ`
       + (pkgRemaining > 0 ? ` ⚠️ กลุ่มนี้ยังมีแพ็กเกจคงเหลือ ${pkgRemaining} ชม. — ลบแล้วจะเรียกดูไม่ได้อีก` : ''),
       true
     );
@@ -320,7 +320,7 @@ export function Groups({ accessToken, dbId, toast }) {
         loading={loading}
         error={error}
         empty={activeGroups.length === 0}
-        emptyMessage='ยังไม่มีกลุ่มนักเรียนค่ะ — กดปุ่ม "+ สร้างกลุ่มใหม่" ด้านบนเพื่อเริ่มจัดกลุ่มได้เลย'
+        emptyMessage='ยังไม่มีกลุ่มนักเรียนครับ — กดปุ่ม "+ สร้างกลุ่มใหม่" ด้านบนเพื่อเริ่มจัดกลุ่มได้เลย'
         onRetry={refresh}
       >
         <div className="bg-white border border-gray-200 rounded-[16px] shadow-[0_1px_3px_rgba(0,0,0,0.08)] overflow-x-auto">
@@ -410,19 +410,19 @@ export function Groups({ accessToken, dbId, toast }) {
                         const oaName = settingsRow?.[SETTINGS.INSTITUTE_NAME] || 'LINE OA';
                         const firstStu = students.find(s => s[STUDENT.ID] === mids[0]);
                         const linkUrl = firstStu ? `${window.location.origin}/line-connect?sid=${firstStu[STUDENT.ID]}&db=${dbId}&name=${encodeURIComponent(firstStu[STUDENT.NAME])}&oa=${encodeURIComponent(oaName)}` : '';
-                        const copyMsg = firstStu ? `📲 สวัสดีค่ะ 😊\n\nกดลิงก์แล้วส่งรหัสในกลุ่มนี้ เพื่อเชื่อมต่อกลุ่มกับระบบของ${TEACHER_ROLE_LABEL}นะคะ\n\n${linkUrl}\n\n💡 กดลิงก์ → copy รหัส → ส่งในกลุ่มนี้เลยค่ะ` : '';
+                        const copyMsg = firstStu ? `📲 สวัสดีครับ 😊\n\nกดลิงก์แล้วส่งรหัสในกลุ่มนี้ เพื่อเชื่อมต่อกลุ่มกับระบบของ${TEACHER_ROLE_LABEL}นะครับ\n\n${linkUrl}\n\n💡 กดลิงก์ → copy รหัส → ส่งในกลุ่มนี้เลยครับ` : '';
                         if (group.data[GROUP.LINE_GROUP_ID]) {
                           return (
                             <div className="flex flex-col gap-1.5">
                               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[6px] text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" /> เชื่อมต่อแล้ว</span>
-                              {linkUrl && <button onClick={() => { copyText(linkUrl); toast('คัดลอกลิงก์แล้ว — ส่งเข้ากลุ่ม LINE ได้เลยค่ะ', 'success'); }} className="inline-flex items-center gap-1 text-[10px] text-gray-400 hover:text-blue-600 underline text-left"><Copy className="w-2.5 h-2.5" strokeWidth={2} />เชื่อมต่อใหม่</button>}
+                              {linkUrl && <button onClick={() => { copyText(linkUrl); toast('คัดลอกลิงก์แล้ว — ส่งเข้ากลุ่ม LINE ได้เลยครับ', 'success'); }} className="inline-flex items-center gap-1 text-[10px] text-gray-400 hover:text-blue-600 underline text-left"><Copy className="w-2.5 h-2.5" strokeWidth={2} />เชื่อมต่อใหม่</button>}
                             </div>
                           );
                         }
                         return (
                           <div className="flex flex-col gap-1.5">
                             <span className="inline-flex items-center gap-1 text-[11px] text-amber-600 font-medium"><AlertTriangle className="w-3 h-3" /> ยังไม่เชื่อมต่อ</span>
-                            {linkUrl && <CopyButton variant="button" size="sm" text={copyMsg} label="คัดลอกลิงก์เชื่อมต่อ" onCopy={() => toast(`คัดลอกลิงก์กลุ่ม ${group.data[GROUP.NAME]} แล้ว — วางส่งเข้ากลุ่ม LINE ได้เลยค่ะ 🔗`, 'success')} className="inline-flex items-center gap-1 px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-semibold rounded-[6px] transition-all active:scale-95 whitespace-nowrap" />}
+                            {linkUrl && <CopyButton variant="button" size="sm" text={copyMsg} label="คัดลอกลิงก์เชื่อมต่อ" onCopy={() => toast(`คัดลอกลิงก์กลุ่ม ${group.data[GROUP.NAME]} แล้ว — วางส่งเข้ากลุ่ม LINE ได้เลยครับ 🔗`, 'success')} className="inline-flex items-center gap-1 px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-semibold rounded-[6px] transition-all active:scale-95 whitespace-nowrap" />}
                           </div>
                         );
                       })()}
@@ -434,7 +434,7 @@ export function Groups({ accessToken, dbId, toast }) {
                           { label: 'ส่ง LINE กลุ่ม', icon: <MessageCircle className="w-3.5 h-3.5" />, colorClass: 'text-green-700', onClick: () => setSendTemplateTarget({ group }) },
                           { label: 'คัดลอกข้อความ Portal', icon: <Copy className="w-3.5 h-3.5" />, colorClass: 'text-blue-700', onClick: () => { const gc = settingsRow?.[SETTINGS.CLASS_CODE] || ''; const gPortalUrl = gc ? `${window.location.origin}/portal?class=${encodeURIComponent(gc)}` : `${window.location.origin}/portal`; const memberIds = groupStudentIds(group.data); const groupMembers = memberIds.map(sid => students.find(s => s[STUDENT.ID] === sid)).filter(Boolean); const msg = buildGroupPortalIntroMessage({ groupName: group.data[GROUP.NAME], groupCode: group.data[GROUP.CODE], groupMembers, portalUrl: gPortalUrl, settingsRow }); copyText(msg); toast(`คัดลอกข้อความ Portal ของกลุ่ม ${group.data[GROUP.NAME]} แล้ว`, 'success'); } },
                           { label: 'แชร์ข้อความ Portal', icon: <Share2 className="w-3.5 h-3.5" />, colorClass: 'text-indigo-700', onClick: async () => { const gc = settingsRow?.[SETTINGS.CLASS_CODE] || ''; const gPortalUrl = gc ? `${window.location.origin}/portal?class=${encodeURIComponent(gc)}` : `${window.location.origin}/portal`; const memberIds = groupStudentIds(group.data); const groupMembers = memberIds.map(sid => students.find(s => s[STUDENT.ID] === sid)).filter(Boolean); const msg = buildGroupPortalIntroMessage({ groupName: group.data[GROUP.NAME], groupCode: group.data[GROUP.CODE], groupMembers, portalUrl: gPortalUrl, settingsRow }); if (navigator.share) { try { await navigator.share({ text: msg }); return; } catch (e) { if (e.name === 'AbortError') return; } } copyText(msg); toast('คัดลอกข้อความแล้ว', 'success'); } },
-                          { label: 'ส่ง LINE Portal (รายคน)', icon: <Send className="w-3.5 h-3.5" />, colorClass: 'text-green-700', onClick: async () => { if (!canSendLine(settingsRow)) { toast('LINE OA ยังไม่ได้ตั้งค่าค่ะ', 'error'); return; } const memberIds = groupStudentIds(group.data); let sent = 0; for (const sid of memberIds) { const stu = students.find(s => s[STUDENT.ID] === sid); const lineUserId = stu?.[STUDENT_LINE_USER_ID]; if (!lineUserId) continue; const stuCode = buildStudentLoginCode(stu[STUDENT.NICKNAME], stu[STUDENT.NAME]); const cc = settingsRow?.[SETTINGS.CLASS_CODE] || ''; const portalUrl = stuCode ? (cc ? `${window.location.origin}/portal?class=${encodeURIComponent(cc)}&code=${stuCode}` : `${window.location.origin}/portal?code=${stuCode}`) : `${window.location.origin}/portal`; const msg = buildPortalIntroMessage({ studentName: stu[STUDENT.NAME], portalUrl, stuCode, settingsRow }); try { await sendLineMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineUserId, msg); sent++; } catch (err) { toastLineError(toast, err); } } if (sent > 0) toast(`ส่ง LINE Portal ให้ ${sent} คนแล้วค่ะ`, 'success'); else toast('ไม่พบนักเรียนที่เชื่อมต่อ LINE ค่ะ', 'error'); } },
+                          { label: 'ส่ง LINE Portal (รายคน)', icon: <Send className="w-3.5 h-3.5" />, colorClass: 'text-green-700', onClick: async () => { if (!canSendLine(settingsRow)) { toast('LINE OA ยังไม่ได้ตั้งค่าครับ', 'error'); return; } const memberIds = groupStudentIds(group.data); let sent = 0; for (const sid of memberIds) { const stu = students.find(s => s[STUDENT.ID] === sid); const lineUserId = stu?.[STUDENT_LINE_USER_ID]; if (!lineUserId) continue; const stuCode = buildStudentLoginCode(stu[STUDENT.NICKNAME], stu[STUDENT.NAME]); const cc = settingsRow?.[SETTINGS.CLASS_CODE] || ''; const portalUrl = stuCode ? (cc ? `${window.location.origin}/portal?class=${encodeURIComponent(cc)}&code=${stuCode}` : `${window.location.origin}/portal?code=${stuCode}`) : `${window.location.origin}/portal`; const msg = buildPortalIntroMessage({ studentName: stu[STUDENT.NAME], portalUrl, stuCode, settingsRow }); try { await sendLineMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineUserId, msg); sent++; } catch (err) { toastLineError(toast, err); } } if (sent > 0) toast(`ส่ง LINE Portal ให้ ${sent} คนแล้วครับ`, 'success'); else toast('ไม่พบนักเรียนที่เชื่อมต่อ LINE ครับ', 'error'); } },
                           { label: 'ส่งแจ้งเตือนก่อนเรียน', icon: <Video className="w-3.5 h-3.5" />, colorClass: 'text-blue-600', onClick: () => handleSendGroupReminder(group) },
                           { label: 'แพ็กเกจกลุ่ม (เติม)', icon: <Package className="w-3.5 h-3.5" />, colorClass: 'text-violet-700', onClick: () => { setGroupPkgModal({ group, grpIdx: group.rowIndex }); setGpkgHoursToAdd(''); } },
                           { label: 'เติมแพ็กเกจ (รายคน)', icon: <Package className="w-3.5 h-3.5" />, colorClass: 'text-purple-700', onClick: () => setSendTemplateTarget({ group, mode: 'topup' }) },

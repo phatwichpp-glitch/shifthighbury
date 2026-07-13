@@ -10,7 +10,7 @@ export function VideoCallLauncher({ scheduleId, studentName, joinCode, onStart, 
   // Embedding the login code makes the link one-tap for the student —
   // without it they have to type their code before every class.
   const joinUrl   = `${window.location.origin}/join?token=${scheduleId}${joinCode ? `&code=${encodeURIComponent(joinCode)}` : ''}`;
-  const shareText = `🎓 ${studentName || 'คุณ'} — ครูรอสายอยู่นะคะ\nกดลิงก์นี้เพื่อเข้าห้องเรียนได้เลยค่ะ 👇\n\n${joinUrl}`;
+  const shareText = `🎓 ${studentName || 'คุณ'} — ครูรอสายอยู่นะครับ\nกดลิงก์นี้เพื่อเข้าห้องเรียนได้เลยครับ 👇\n\n${joinUrl}`;
 
   const handleShare = async () => {
     setSharing(true);
@@ -19,10 +19,10 @@ export function VideoCallLauncher({ scheduleId, studentName, joinCode, onStart, 
         await navigator.share({ title: `เข้าห้องเรียน — ${studentName}`, text: shareText });
       } else {
         await copyText(shareText);
-        toast?.('คัดลอกลิงก์แล้ว — วางส่งใน LINE ได้เลยค่ะ', 'success');
+        toast?.('คัดลอกลิงก์แล้ว — วางส่งใน LINE ได้เลยครับ', 'success');
       }
     } catch (e) {
-      if (e.name !== 'AbortError') toast?.('แชร์ไม่ได้ — ลองคัดลอกแทนค่ะ', 'error');
+      if (e.name !== 'AbortError') toast?.('แชร์ไม่ได้ — ลองคัดลอกแทนครับ', 'error');
     }
     setSharing(false);
   };
@@ -74,7 +74,7 @@ export function VideoCallLauncher({ scheduleId, studentName, joinCode, onStart, 
                 size="sm"
                 text={joinUrl}
                 label="คัดลอก URL"
-                onCopy={() => toast?.('คัดลอก URL แล้วค่ะ', 'success')}
+                onCopy={() => toast?.('คัดลอก URL แล้วครับ', 'success')}
                 className="flex-shrink-0 p-1.5 rounded-[6px] transition-all active:scale-95 text-gray-500 hover:text-gray-700 hover:bg-gray-200"
               />
             </div>
@@ -90,7 +90,7 @@ export function VideoCallLauncher({ scheduleId, studentName, joinCode, onStart, 
               variant="button"
               text={shareText}
               label="คัดลอกข้อความ"
-              onCopy={() => toast?.('คัดลอกลิงก์แล้ว — วางส่งใน LINE ได้เลยค่ะ', 'success')}
+              onCopy={() => toast?.('คัดลอกลิงก์แล้ว — วางส่งใน LINE ได้เลยครับ', 'success')}
               className="flex items-center justify-center gap-2 py-2.5 rounded-[10px] text-[13px] font-semibold border transition-all active:scale-95"
             />
             <button

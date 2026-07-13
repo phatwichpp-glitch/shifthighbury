@@ -7,10 +7,10 @@ import { SETTINGS } from '../lib/constants';
 import { updateSettings, getSettings } from '../services/googleSheets';
 
 const DEFAULT_TEMPLATES = [
-  { id: 'lesson-summary', name: 'สรุปบทเรียน', text: '📚 สรุปบทเรียนวันนี้ค่ะ\n\nวิชา: {subject}\nเนื้อหา: {note}\n\nการบ้าน: {homework}\n\nสอบถามเพิ่มเติมได้เลยนะคะ 😊' },
-  { id: 'bill-reminder', name: 'แจ้งเตือนบิล', text: '💰 แจ้งเตือนค่าเรียนค่ะ\n\nเรียนคุณ{name} ค่ะ\nมีบิลค้างชำระ {amount} บาท\nกรุณาชำระภายใน {due} นะคะ 🙏' },
-  { id: 'class-cancel', name: 'ยกเลิกคลาส', text: '⚠️ แจ้งเลื่อนคลาสค่ะ\n\nเรียนคุณ{name} ค่ะ\nขอเลื่อนคลาสวันที่ {date} เนื่องจาก{reason}\nจะนัดวันใหม่ให้เร็วๆ นี้นะคะ 🙏' },
-  { id: 'encouragement', name: 'กำลังใจ', text: '🌟 สู้ๆ นะคะ!\n\nคุณ{name} พัฒนาขึ้นมากเลยค่ะ\nโดยเฉพาะเรื่อง{skill} ค่ะ\nเดินหน้าต่อไปนะคะ 💪' },
+  { id: 'lesson-summary', name: 'สรุปบทเรียน', text: '📚 สรุปบทเรียนวันนี้ครับ\n\nวิชา: {subject}\nเนื้อหา: {note}\n\nการบ้าน: {homework}\n\nสอบถามเพิ่มเติมได้เลยนะครับ 😊' },
+  { id: 'bill-reminder', name: 'แจ้งเตือนบิล', text: '💰 แจ้งเตือนค่าเรียนครับ\n\nเรียนคุณ{name} ครับ\nมีบิลค้างชำระ {amount} บาท\nกรุณาชำระภายใน {due} นะครับ 🙏' },
+  { id: 'class-cancel', name: 'ยกเลิกคลาส', text: '⚠️ แจ้งเลื่อนคลาสครับ\n\nเรียนคุณ{name} ครับ\nขอเลื่อนคลาสวันที่ {date} เนื่องจาก{reason}\nจะนัดวันใหม่ให้เร็วๆ นี้นะครับ 🙏' },
+  { id: 'encouragement', name: 'กำลังใจ', text: '🌟 สู้ๆ นะครับ!\n\nคุณ{name} พัฒนาขึ้นมากเลยครับ\nโดยเฉพาะเรื่อง{skill} ครับ\nเดินหน้าต่อไปนะครับ 💪' },
 ];
 
 export { DEFAULT_TEMPLATES };
@@ -37,31 +37,31 @@ const SYS_MSG_DEFS = [
     key: SETTINGS.MSG_PORTAL_REMINDER,
     name: 'แจ้งเตือนคลาส (Portal)',
     hint: 'ส่งก่อนคลาส — ตัวแปร: {name} {subject} {time} {url} {code} {class_code}',
-    defaultText: `สวัสดีค่ะคุณ{name} 😊\nใกล้ถึงเวลาเรียนแล้วนะคะ{subject}\n{time}\n\n📱 เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะคะ:\n👉 {url}\nClass Code: {class_code}\nLogin Code: {code}`,
+    defaultText: `สวัสดีครับคุณ{name} 😊\nใกล้ถึงเวลาเรียนแล้วนะครับ{subject}\n{time}\n\n📱 เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะครับ:\n👉 {url}\nClass Code: {class_code}\nLogin Code: {code}`,
   },
   {
     key: SETTINGS.MSG_GROUP_PORTAL_REMINDER,
     name: 'แจ้งเตือนคลาสกลุ่ม (Portal)',
     hint: 'ส่งก่อนคลาสกลุ่ม — ตัวแปร: {name} {group} {subject} {time} {url} {code} {class_code}',
-    defaultText: `สวัสดีค่ะคุณ{name} 😊\nใกล้ถึงเวลาเรียน{group}แล้วนะคะ{subject}\n{time}\n\n📱 เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะคะ:\n👉 {url}\nClass Code: {class_code}\nLogin Code: {code}`,
+    defaultText: `สวัสดีครับคุณ{name} 😊\nใกล้ถึงเวลาเรียน{group}แล้วนะครับ{subject}\n{time}\n\n📱 เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะครับ:\n👉 {url}\nClass Code: {class_code}\nLogin Code: {code}`,
   },
   {
     key: SETTINGS.MSG_PORTAL_INTRO,
     name: 'แนะนำ Portal (รายคน)',
     hint: 'ส่งครั้งแรกเมื่อเพิ่มนักเรียนใหม่ — ตัวแปร: {name} {url} {code} {class_code}',
-    defaultText: `สวัสดีค่ะคุณ{name} 😊\n\nสามารถเข้า Student Portal เพื่อดูตารางเรียน คะแนน และข้อมูลการเรียนได้เลยนะคะ\n\n📚 ลิงก์เข้าระบบ:\n👉 {url}\n🔑 Class Code: {class_code}\nLogin Code: {code}`,
+    defaultText: `สวัสดีครับคุณ{name} 😊\n\nสามารถเข้า Student Portal เพื่อดูตารางเรียน คะแนน และข้อมูลการเรียนได้เลยนะครับ\n\n📚 ลิงก์เข้าระบบ:\n👉 {url}\n🔑 Class Code: {class_code}\nLogin Code: {code}`,
   },
   {
     key: SETTINGS.MSG_GROUP_PORTAL_INTRO,
     name: 'แนะนำ Portal (กลุ่ม)',
     hint: 'ส่งในกลุ่ม LINE — ตัวแปร: {group} {url} {class_code}',
-    defaultText: `สวัสดีค่ะนักเรียนกลุ่ม{group} 😊\n\nสามารถเข้า Student Portal เพื่อดูตารางเรียน คะแนน และข้อมูลการเรียนได้เลยนะคะ\n\n📚 ลิงก์เข้าระบบ:\n👉 {url}\n🔑 สามารถใช้รหัสกลุ่มหรือรหัสส่วนตัวของแต่ละคนในการล็อกอินนะคะ\n🔑 Class Code: {class_code}\nLogin Code: {code}`,
+    defaultText: `สวัสดีครับนักเรียนกลุ่ม{group} 😊\n\nสามารถเข้า Student Portal เพื่อดูตารางเรียน คะแนน และข้อมูลการเรียนได้เลยนะครับ\n\n📚 ลิงก์เข้าระบบ:\n👉 {url}\n🔑 สามารถใช้รหัสกลุ่มหรือรหัสส่วนตัวของแต่ละคนในการล็อกอินนะครับ\n🔑 Class Code: {class_code}\nLogin Code: {code}`,
   },
   {
     key: SETTINGS.MSG_ZOOM,
     name: 'ลิงก์เข้าเรียน Zoom',
     hint: 'ส่งก่อนคลาส Zoom — ตัวแปร: {name} {subject} {time} {url}',
-    defaultText: `🎥 ลิงก์เข้าเรียน Zoom ค่ะ\n\nสวัสดีค่ะคุณ{name} 😊\nใกล้ถึงเวลาเรียนแล้วนะคะ{subject}\n{time}\n\n🔗 {url}\n\nกดลิงก์เข้าห้องเรียนได้เลยค่ะ เจอกันนะคะ 🌟`,
+    defaultText: `🎥 ลิงก์เข้าเรียน Zoom ครับ\n\nสวัสดีครับคุณ{name} 😊\nใกล้ถึงเวลาเรียนแล้วนะครับ{subject}\n{time}\n\n🔗 {url}\n\nกดลิงก์เข้าห้องเรียนได้เลยครับ เจอกันนะครับ 🌟`,
   },
 ];
 
@@ -94,7 +94,7 @@ function SystemMessages({ accessToken, dbId, toast }) {
       await updateSettings(accessToken, dbId, newRow);
       setValues(v => ({ ...v, [editingKey]: editText }));
       setEditingKey(null);
-      toast('บันทึก template ระบบแล้วค่ะ');
+      toast('บันทึก template ระบบแล้วครับ');
     } catch (e) {
       toast(e.message || 'บันทึกไม่สำเร็จ', 'error');
     } finally {
@@ -159,22 +159,22 @@ export function Templates({ accessToken, dbId, toast }) {
   const save = (list) => { setTemplates(list); localStorage.setItem('zw_templates', JSON.stringify(list)); };
 
   const handleSave = () => {
-    if (!editing.name.trim() || !editing.text.trim()) return toast('กรุณากรอกชื่อและข้อความค่ะ', 'error');
+    if (!editing.name.trim() || !editing.text.trim()) return toast('กรุณากรอกชื่อและข้อความครับ', 'error');
     const exists = templates.find(t => t.id === editing.id);
     if (exists) save(templates.map(t => t.id === editing.id ? editing : t));
     else save([...templates, { ...editing, id: 'tpl-' + Date.now() }]);
     setEditing(null);
-    toast('บันทึก template แล้วค่ะ');
+    toast('บันทึก template แล้วครับ');
   };
 
-  const handleDelete = (id) => { save(templates.filter(t => t.id !== id)); toast('ลบ template แล้วค่ะ'); };
+  const handleDelete = (id) => { save(templates.filter(t => t.id !== id)); toast('ลบ template แล้วครับ'); };
 
   return (
     <div className="p-3 sm:p-4 lg:p-6 max-w-4xl mx-auto space-y-4">
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-[24px] font-bold text-gray-900 flex items-center gap-2"><MessageSquare className="w-6 h-6 text-gray-600" />Template ข้อความ</h2>
-          <p className="text-[14px] text-gray-500 mt-1">จัดการ template ข้อความที่ใช้บ่อย — ส่งตรงจากหน้านักเรียนได้เลย ไม่ต้องมาแก้ทีละครั้งค่ะ</p>
+          <p className="text-[14px] text-gray-500 mt-1">จัดการ template ข้อความที่ใช้บ่อย — ส่งตรงจากหน้านักเรียนได้เลย ไม่ต้องมาแก้ทีละครั้งครับ</p>
         </div>
         {tab === 'custom' && <button onClick={() => setEditing({ id: '', name: '', text: '' })} className={btnPrimary}>+ เพิ่ม Template</button>}
       </div>
@@ -203,7 +203,7 @@ export function Templates({ accessToken, dbId, toast }) {
                 </div>
                 <div>
                   <label className={labelClasses}>ข้อความ</label>
-                  <textarea value={editing.text} onChange={e => setEditing(f => ({ ...f, text: e.target.value }))} className={`${inputClasses} resize-none`} rows={6} placeholder="พิมพ์ข้อความ... ใช้ {name} {subject} {note} แทนชื่อ/วิชา/หมายเหตุได้ค่ะ" />
+                  <textarea value={editing.text} onChange={e => setEditing(f => ({ ...f, text: e.target.value }))} className={`${inputClasses} resize-none`} rows={6} placeholder="พิมพ์ข้อความ... ใช้ {name} {subject} {note} แทนชื่อ/วิชา/หมายเหตุได้ครับ" />
                   <p className="text-[11px] text-gray-400 mt-1">ตัวแปร: {'{name}'} = ชื่อนักเรียน, {'{subject}'} = วิชา, {'{note}'} = หมายเหตุ, {'{date}'} = วันที่, {'{amount}'} = ยอดเงิน</p>
                 </div>
                 <div className="flex gap-3 justify-end pt-2">
@@ -229,7 +229,7 @@ export function Templates({ accessToken, dbId, toast }) {
                   variant="button"
                   text={t.text}
                   label="คัดลอกข้อความ"
-                  onCopy={() => toast('คัดลอกแล้วค่ะ')}
+                  onCopy={() => toast('คัดลอกแล้วครับ')}
                   className="w-full py-2 rounded-[8px] text-[13px] font-medium transition-all active:scale-95 flex items-center justify-center gap-1.5 bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-700 border border-transparent hover:border-blue-200"
                 />
               </div>

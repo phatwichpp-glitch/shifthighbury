@@ -125,7 +125,7 @@ export function Students({ accessToken, dbId, toast }) {
     }, toast, editingStudent ? 'อัปเดตข้อมูลนักเรียนเรียบร้อย!' : 'เพิ่มรายชื่อนักเรียนสำเร็จ!');
     if (ok) {
       setShowForm(false); setEditingStudent(null); setFormData({ name: '', subject: '', rate: '', line_user_id: '', line_group_id: '', loginCode: '' }); refresh({ force: true });
-      if (loginCodeChanged) toast(`รหัส Portal เปลี่ยนจาก ${loginCodeChanged.from} เป็น ${loginCodeChanged.to} (รหัสเดิมชนกับคนอื่น) — อย่าลืมส่งรหัสใหม่ให้ผู้ปกครองอีกครั้งนะคะ รหัสเก่าใช้ไม่ได้แล้ว`, 'info');
+      if (loginCodeChanged) toast(`รหัส Portal เปลี่ยนจาก ${loginCodeChanged.from} เป็น ${loginCodeChanged.to} (รหัสเดิมชนกับคนอื่น) — อย่าลืมส่งรหัสใหม่ให้ผู้ปกครองอีกครั้งนะครับ รหัสเก่าใช้ไม่ได้แล้ว`, 'info');
     }
     setIsSubmitting(false);
   };
@@ -134,8 +134,8 @@ export function Students({ accessToken, dbId, toast }) {
     const summary = getStudentSummary(student.data[STUDENT.ID], student.data[STUDENT.RATE]);
     const ok = await confirm(
       summary.unbilledCount > 0
-        ? `"${student.data[STUDENT.NAME]}" ยังมีคาบค้างออกบิล ${summary.unbilledCount} คาบ (${summary.pendingAmount.toLocaleString()} ฿) — ลบแล้วจะไม่เห็นในหน้าออกบิลอีก แนะนำให้ออกบิลก่อนลบ ยืนยันลบเลยใช่ไหมคะ?`
-        : `ลบชื่อ "${student.data[STUDENT.NAME]}" ออกจากระบบใช่ไหมคะ?`,
+        ? `"${student.data[STUDENT.NAME]}" ยังมีคาบค้างออกบิล ${summary.unbilledCount} คาบ (${summary.pendingAmount.toLocaleString()} ฿) — ลบแล้วจะไม่เห็นในหน้าออกบิลอีก แนะนำให้ออกบิลก่อนลบ ยืนยันลบเลยใช่ไหมครับ?`
+        : `ลบชื่อ "${student.data[STUDENT.NAME]}" ออกจากระบบใช่ไหมครับ?`,
       true
     );
     if (!ok) return;
@@ -200,7 +200,7 @@ export function Students({ accessToken, dbId, toast }) {
 
   const handleCreateInvoice = async (e) => {
     e.preventDefault();
-    if (selectedSessionIds.length === 0) return toast('กรุณาเลือกคาบเรียนอย่างน้อย 1 คาบค่ะ', 'error');
+    if (selectedSessionIds.length === 0) return toast('กรุณาเลือกคาบเรียนอย่างน้อย 1 คาบครับ', 'error');
     setIsSubmitting(true);
     const rate = safeFloat(billingStudent[STUDENT.RATE]);
     const subtotal = Math.round(totalSelectedHours * rate * 100) / 100;
@@ -241,10 +241,10 @@ export function Students({ accessToken, dbId, toast }) {
           .sort((a, b) => (a.data[SESSION.DATE] || '').localeCompare(b.data[SESSION.DATE] || '')),
       }))
       .filter(t => t.unbilled.length > 0 && safeFloat(t.student[STUDENT.RATE]) > 0);
-    if (targets.length === 0) return toast('ไม่มีนักเรียนที่มีคาบค้างชำระค่ะ', 'error');
+    if (targets.length === 0) return toast('ไม่มีนักเรียนที่มีคาบค้างชำระครับ', 'error');
     if (!onlyStudentIds) {
       const totalSessionCount = targets.reduce((n, t) => n + t.unbilled.length, 0);
-      const ok = await confirm(`ออกบิลให้ ${targets.length} คน (รวม ${totalSessionCount} คาบที่ค้างอยู่ทั้งหมด) ยืนยันใช่ไหมคะ?`);
+      const ok = await confirm(`ออกบิลให้ ${targets.length} คน (รวม ${totalSessionCount} คาบที่ค้างอยู่ทั้งหมด) ยืนยันใช่ไหมครับ?`);
       if (!ok) return;
     }
     setIsBulkBilling(true);
@@ -280,12 +280,12 @@ export function Students({ accessToken, dbId, toast }) {
     setIsBulkBilling(false);
     refresh({ force: true });
     setFailedBulkStudents(failed);
-    if (failed.length === 0) toast(`ออกบิลสำเร็จ ${created} ใบ! ดู/ส่งบิลได้ที่หน้า "ใบแจ้งหนี้" ค่ะ`, 'success');
-    else toast(`ออกบิลสำเร็จ ${created} ใบ แต่ไม่สำเร็จ ${failed.length} คน (${failed.map(f => f.name).join(', ')}) — กดปุ่ม "ลองใหม่เฉพาะที่พลาด" ด้านบนได้เลยค่ะ`, 'error');
+    if (failed.length === 0) toast(`ออกบิลสำเร็จ ${created} ใบ! ดู/ส่งบิลได้ที่หน้า "ใบแจ้งหนี้" ครับ`, 'success');
+    else toast(`ออกบิลสำเร็จ ${created} ใบ แต่ไม่สำเร็จ ${failed.length} คน (${failed.map(f => f.name).join(', ')}) — กดปุ่ม "ลองใหม่เฉพาะที่พลาด" ด้านบนได้เลยครับ`, 'error');
   };
 
   const handleChangeInvoiceStatus = async (invoiceId, arrayIndex, newStatus) => {
-    const ok = await confirm(`เปลี่ยนสถานะบิลเป็น "${newStatus}" ยืนยันใช่ไหมคะ?`);
+    const ok = await confirm(`เปลี่ยนสถานะบิลเป็น "${newStatus}" ยืนยันใช่ไหมครับ?`);
     if (!ok) return;
     const success = await runWithFeedback(() => updateInvoiceStatus(accessToken, dbId, arrayIndex + 2, newStatus), toast, 'อัปเดตสถานะเรียบร้อย!');
     if (success) { setPreviewData(prev => (prev?.invoiceId === invoiceId) ? { ...prev, status: newStatus } : prev); refresh({ force: true }); }
@@ -293,14 +293,14 @@ export function Students({ accessToken, dbId, toast }) {
 
   const handleSendLineFromPreview = async () => {
     if (!previewData) return;
-    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error');
-    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ค่ะ', 'error');
+    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error');
+    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ครับ', 'error');
     const lineToken = settingsRow[SETTINGS.LINE_TOKEN];
     const lineWorkerUrl = settingsRow[SETTINGS.LINE_WORKER_URL];
     const student = students.find(s => s[STUDENT.ID] === previewData.studentId);
     if (!student) return toast('ไม่พบข้อมูลนักเรียน', 'error');
     const lineUserId = student[STUDENT_LINE_USER_ID] || '';
-    if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID ค่ะ', 'error');
+    if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID ครับ', 'error');
     const instituteName = settingsRow?.[SETTINGS.INSTITUTE_NAME] || 'SHIFTHIGHBURY';
     const stuCode = buildStudentLoginCode(student[STUDENT.NICKNAME], student[STUDENT.NAME]);
     const footnote = buildLineFootnote({ portalUrl: `${window.location.origin}/portal`, studentCode: stuCode });
@@ -319,13 +319,13 @@ export function Students({ accessToken, dbId, toast }) {
 
   const handleSendLineImageFromPreview = async () => {
     if (!previewData) return;
-    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error');
-    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ค่ะ', 'error');
+    if (!canSendLine(settingsRow)) return toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error');
+    if (settingsRow?.[SETTINGS.SEND_INVOICE_RECEIPT] === 'FALSE') return toast('การส่งบิล/ใบเสร็จทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ครับ', 'error');
     const lineToken = settingsRow[SETTINGS.LINE_TOKEN];
     const lineWorkerUrl = settingsRow[SETTINGS.LINE_WORKER_URL];
     const student = students.find(s => s[STUDENT.ID] === previewData.studentId);
     const lineUserId = student?.[STUDENT_LINE_USER_ID] || '';
-    if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID ค่ะ', 'error');
+    if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID ครับ', 'error');
     setIsSendingLineImage(true);
     const sentAt = new Date().toLocaleString('th-TH');
     const ok = await runWithFeedback(async () => {
@@ -361,15 +361,15 @@ export function Students({ accessToken, dbId, toast }) {
           onSendLineImage={lineOAEnabled && settingsRow?.[SETTINGS.LINE_TOKEN] && settingsRow?.[SETTINGS.LINE_WORKER_URL] ? async () => {
             const stu = students.find(s => s[STUDENT.NAME] === pkgReceiptPreview.studentName);
             const lineUserId = stu?.[STUDENT_LINE_USER_ID] || '';
-            if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID ค่ะ', 'error');
+            if (!lineUserId) return toast('นักเรียนคนนี้ยังไม่มี LINE User ID ครับ', 'error');
             setIsSendingPkgReceipt(true);
-            try { const imageDataUrl = await elementToJpegDataUrl('pkg-receipt-container'); await sendLineImageMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineUserId, imageDataUrl); toast(`ส่งใบเสร็จเติมแพ็กเกจทาง LINE ให้ ${pkgReceiptPreview.studentName} แล้วค่ะ`, 'success'); } catch (e) { toast(`ส่งไม่สำเร็จ: ${e.message}`, 'error'); }
+            try { const imageDataUrl = await elementToJpegDataUrl('pkg-receipt-container'); await sendLineImageMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineUserId, imageDataUrl); toast(`ส่งใบเสร็จเติมแพ็กเกจทาง LINE ให้ ${pkgReceiptPreview.studentName} แล้วครับ`, 'success'); } catch (e) { toast(`ส่งไม่สำเร็จ: ${e.message}`, 'error'); }
             finally { setIsSendingPkgReceipt(false); }
           } : undefined}
           isSendingLineImage={isSendingPkgReceipt}
           sendImageLabel="ใบเสร็จแพ็กเกจ"
         >
-          <PackageReceiptDocument id="pkg-receipt-container" receipt={pkgReceiptPreview} accentColor={settingsRow?.[SETTINGS.ACCENT_COLOR] || '#1d4ed8'} logoUrl={settingsRow?.[SETTINGS.LOGO_URL] || ''} instituteName={settingsRow?.[SETTINGS.INSTITUTE_NAME] || 'SHIFTHIGHBURY'} footerNote={settingsRow?.[SETTINGS.FOOTER_NOTE] || 'ขอบคุณที่ไว้วางใจค่ะ'} signatureUrl={settingsRow?.[SETTINGS.SIGNATURE_URL] || ''} />
+          <PackageReceiptDocument id="pkg-receipt-container" receipt={pkgReceiptPreview} accentColor={settingsRow?.[SETTINGS.ACCENT_COLOR] || '#1d4ed8'} logoUrl={settingsRow?.[SETTINGS.LOGO_URL] || ''} instituteName={settingsRow?.[SETTINGS.INSTITUTE_NAME] || 'SHIFTHIGHBURY'} footerNote={settingsRow?.[SETTINGS.FOOTER_NOTE] || 'ขอบคุณที่ไว้วางใจครับ'} signatureUrl={settingsRow?.[SETTINGS.SIGNATURE_URL] || ''} />
         </InvoicePreviewModal>
       )}
 
@@ -387,7 +387,7 @@ export function Students({ accessToken, dbId, toast }) {
           lineSentAt={previewData.lineSentAt}
           lastSharedAt={previewData.lastSharedAt}
         >
-          <InvoiceDocument id="invoice-preview-container" previewData={previewData} accentColor={settingsRow?.[SETTINGS.ACCENT_COLOR] || '#1d4ed8'} logoUrl={settingsRow?.[SETTINGS.LOGO_URL] || ''} instituteName={settingsRow?.[SETTINGS.INSTITUTE_NAME] || 'SHIFTHIGHBURY'} paymentMethods={settingsRow?.[SETTINGS.PAYMENT_METHODS] || 'กรุณาตั้งค่าช่องทางการชำระเงินในเมนูตั้งค่า'} footerNote={settingsRow?.[SETTINGS.FOOTER_NOTE] || 'ขอขอบคุณที่ไว้วางใจให้เราดูแลการเรียนของคุณนะคะ'} qrCodeUrl={qrCodeUrl} promptpayId={settingsRow?.[SETTINGS.PROMPTPAY_ID]} />
+          <InvoiceDocument id="invoice-preview-container" previewData={previewData} accentColor={settingsRow?.[SETTINGS.ACCENT_COLOR] || '#1d4ed8'} logoUrl={settingsRow?.[SETTINGS.LOGO_URL] || ''} instituteName={settingsRow?.[SETTINGS.INSTITUTE_NAME] || 'SHIFTHIGHBURY'} paymentMethods={settingsRow?.[SETTINGS.PAYMENT_METHODS] || 'กรุณาตั้งค่าช่องทางการชำระเงินในเมนูตั้งค่า'} footerNote={settingsRow?.[SETTINGS.FOOTER_NOTE] || 'ขอขอบคุณที่ไว้วางใจให้เราดูแลการเรียนของคุณนะครับ'} qrCodeUrl={qrCodeUrl} promptpayId={settingsRow?.[SETTINGS.PROMPTPAY_ID]} />
         </InvoicePreviewModal>
       )}
 
@@ -580,7 +580,7 @@ export function Students({ accessToken, dbId, toast }) {
         loading={loading}
         error={error}
         empty={allActiveStudents.length === 0}
-        emptyMessage={'ยังไม่มีนักเรียนในระบบค่ะ — กดปุ่ม "เพิ่มนักเรียนใหม่" ด้านบนเพื่อเริ่มต้น'}
+        emptyMessage={'ยังไม่มีนักเรียนในระบบครับ — กดปุ่ม "เพิ่มนักเรียนใหม่" ด้านบนเพื่อเริ่มต้น'}
         emptyIcon={<GraduationCap className="w-6 h-6 text-gray-400" strokeWidth={1.5} />}
         onRetry={refresh}
       >
@@ -644,16 +644,16 @@ export function Students({ accessToken, dbId, toast }) {
                                 onClick: () => {
                                   const oaName = settingsRow?.[SETTINGS.INSTITUTE_NAME] || 'LINE OA ของสถาบัน';
                                   const url = `${window.location.origin}/line-connect?sid=${student.data[STUDENT.ID]}&db=${dbId}&name=${encodeURIComponent(student.data[STUDENT.NAME])}&oa=${encodeURIComponent(oaName)}`;
-                                  const msg = `📲 สวัสดีค่ะคุณ${student.data[STUDENT.NAME]} 😊\n\nกดลิงก์ด้านล่างเพื่อเชื่อมต่อ LINE กับระบบของ${TEACHER_ROLE_LABEL}นะคะ\n\n${url}`;
+                                  const msg = `📲 สวัสดีครับคุณ${student.data[STUDENT.NAME]} 😊\n\nกดลิงก์ด้านล่างเพื่อเชื่อมต่อ LINE กับระบบของ${TEACHER_ROLE_LABEL}นะครับ\n\n${url}`;
                                   copyText(msg);
                                   toast(`คัดลอกข้อความ+ลิงก์ของ ${student.data[STUDENT.NAME]} แล้ว`, 'success');
                                 }
                               },
-                              { label: 'ยกเลิกเชื่อมต่อกลุ่ม LINE', icon: <Users className="w-3.5 h-3.5" />, colorClass: 'text-gray-600', hidden: !student.data[STUDENT_LINE_GROUP_ID], onClick: async () => { const ok = await runWithFeedback(() => updateStudentLineGroupId(accessToken, dbId, student.rowIndex, ''), toast, `ยกเลิกเชื่อมต่อกลุ่ม LINE ของ ${student.data[STUDENT.NAME]} แล้วค่ะ`); if (ok) refresh({ force: true }); } },
+                              { label: 'ยกเลิกเชื่อมต่อกลุ่ม LINE', icon: <Users className="w-3.5 h-3.5" />, colorClass: 'text-gray-600', hidden: !student.data[STUDENT_LINE_GROUP_ID], onClick: async () => { const ok = await runWithFeedback(() => updateStudentLineGroupId(accessToken, dbId, student.rowIndex, ''), toast, `ยกเลิกเชื่อมต่อกลุ่ม LINE ของ ${student.data[STUDENT.NAME]} แล้วครับ`); if (ok) refresh({ force: true }); } },
                               { label: 'ออกรายงาน', icon: <BarChart2 className="w-3.5 h-3.5" />, colorClass: 'text-amber-700', onClick: () => { setReportStudent(student); setReportMonth(localDateStr().slice(0, 7)); } },
                               { label: 'คัดลอกข้อความ Portal', icon: <Key className="w-3.5 h-3.5" />, colorClass: 'text-blue-700', hidden: !buildStudentLoginCode(student.data[STUDENT.NICKNAME], student.data[STUDENT.NAME]), onClick: () => { const stuCode = buildStudentLoginCode(student.data[STUDENT.NICKNAME], student.data[STUDENT.NAME]); const classCode = settingsRow?.[SETTINGS.CLASS_CODE] || ''; const portalUrl = classCode ? `${window.location.origin}/portal?class=${encodeURIComponent(classCode)}&code=${stuCode}` : `${window.location.origin}/portal?code=${stuCode}`; copyText(buildPortalIntroMessage({ studentName: student.data[STUDENT.NAME], portalUrl, stuCode, settingsRow })); toast(`คัดลอกข้อความ Portal ของ ${student.data[STUDENT.NAME]} แล้ว`, 'success'); } },
                               { label: 'แชร์ข้อความ Portal', icon: <Share2 className="w-3.5 h-3.5" />, colorClass: 'text-indigo-700', hidden: !buildStudentLoginCode(student.data[STUDENT.NICKNAME], student.data[STUDENT.NAME]), onClick: async () => { const stuCode = buildStudentLoginCode(student.data[STUDENT.NICKNAME], student.data[STUDENT.NAME]); const classCode = settingsRow?.[SETTINGS.CLASS_CODE] || ''; const portalUrl = classCode ? `${window.location.origin}/portal?class=${encodeURIComponent(classCode)}&code=${stuCode}` : `${window.location.origin}/portal?code=${stuCode}`; const msg = buildPortalIntroMessage({ studentName: student.data[STUDENT.NAME], portalUrl, stuCode, settingsRow }); if (navigator.share) { try { await navigator.share({ text: msg }); return; } catch (e) { if (e.name === 'AbortError') return; } } copyText(msg); toast('คัดลอกข้อความแล้ว', 'success'); } },
-                              { label: 'ส่ง LINE Portal', icon: <Send className="w-3.5 h-3.5" />, colorClass: 'text-green-700', hidden: !buildStudentLoginCode(student.data[STUDENT.NICKNAME], student.data[STUDENT.NAME]), onClick: async () => { const lineUserId = student.data[STUDENT_LINE_USER_ID]; if (!lineUserId) { toast(`${student.data[STUDENT.NAME]} ยังไม่ได้เชื่อมต่อ LINE ค่ะ`, 'error'); return; } if (!canSendLine(settingsRow)) { toast('LINE OA ยังไม่ได้ตั้งค่าค่ะ', 'error'); return; } const stuCode = buildStudentLoginCode(student.data[STUDENT.NICKNAME], student.data[STUDENT.NAME]); const classCode = settingsRow?.[SETTINGS.CLASS_CODE] || ''; const portalUrl = classCode ? `${window.location.origin}/portal?class=${encodeURIComponent(classCode)}&code=${stuCode}` : `${window.location.origin}/portal?code=${stuCode}`; const msg = buildPortalIntroMessage({ studentName: student.data[STUDENT.NAME], portalUrl, stuCode, settingsRow }); try { await sendLineMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineUserId, msg); toast(`ส่ง LINE ให้ ${student.data[STUDENT.NAME]} แล้วค่ะ`, 'success'); } catch (err) { toastLineError(toast, err); } } },
+                              { label: 'ส่ง LINE Portal', icon: <Send className="w-3.5 h-3.5" />, colorClass: 'text-green-700', hidden: !buildStudentLoginCode(student.data[STUDENT.NICKNAME], student.data[STUDENT.NAME]), onClick: async () => { const lineUserId = student.data[STUDENT_LINE_USER_ID]; if (!lineUserId) { toast(`${student.data[STUDENT.NAME]} ยังไม่ได้เชื่อมต่อ LINE ครับ`, 'error'); return; } if (!canSendLine(settingsRow)) { toast('LINE OA ยังไม่ได้ตั้งค่าครับ', 'error'); return; } const stuCode = buildStudentLoginCode(student.data[STUDENT.NICKNAME], student.data[STUDENT.NAME]); const classCode = settingsRow?.[SETTINGS.CLASS_CODE] || ''; const portalUrl = classCode ? `${window.location.origin}/portal?class=${encodeURIComponent(classCode)}&code=${stuCode}` : `${window.location.origin}/portal?code=${stuCode}`; const msg = buildPortalIntroMessage({ studentName: student.data[STUDENT.NAME], portalUrl, stuCode, settingsRow }); try { await sendLineMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineUserId, msg); toast(`ส่ง LINE ให้ ${student.data[STUDENT.NAME]} แล้วครับ`, 'success'); } catch (err) { toastLineError(toast, err); } } },
                               { label: 'ลบ', icon: <Trash2 className="w-3.5 h-3.5" />, danger: true, onClick: () => handleDeleteClick(student) },
                             ]} />
                           </div>

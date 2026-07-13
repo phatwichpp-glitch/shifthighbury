@@ -19,7 +19,7 @@ export function StateDisplay({
   loading = false,
   error = null,
   empty = false,
-  emptyMessage = 'ยังไม่มีข้อมูลค่ะ',
+  emptyMessage = 'ยังไม่มีข้อมูลครับ',
   emptyIcon = null,
   onRetry,
   loadingMessage = 'กำลังโหลด...',
@@ -36,7 +36,7 @@ export function StateDisplay({
   }
 
   if (error) {
-    const msg = error?.message || String(error || 'เกิดข้อผิดพลาดที่ไม่คาดคิดค่ะ');
+    const msg = error?.message || String(error || 'เกิดข้อผิดพลาดที่ไม่คาดคิดครับ');
     return (
       <div className={`flex flex-col items-center justify-center py-16 gap-4 text-center ${className}`}>
         <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">

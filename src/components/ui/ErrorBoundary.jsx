@@ -36,7 +36,7 @@ export class AppErrorBoundary extends Component {
           </div>
           <h2 className="text-[20px] font-extrabold text-gray-900 mb-2">{title}</h2>
           <p className="text-gray-500 text-[14px] leading-relaxed mb-1">
-            {message || 'ระบบพบข้อผิดพลาดที่ไม่คาดคิดค่ะ กรุณารีโหลดหน้าเพื่อลองใหม่'}
+            {message || 'ระบบพบข้อผิดพลาดที่ไม่คาดคิดครับ กรุณารีโหลดหน้าเพื่อลองใหม่'}
           </p>
           {errorMsg && (
             <p className="text-[11px] text-red-400 font-mono bg-red-50 rounded-[8px] px-3 py-2 mt-3 mb-5 text-left break-all">
@@ -98,9 +98,9 @@ export class VideoCallErrorBoundary extends Component {
               <line x1="8" y1="18" x2="8.01" y2="18" />
             </svg>
           </div>
-          <h2 className="text-[18px] font-extrabold text-gray-900 mb-2">วิดีโอคอลล่มค่ะ</h2>
+          <h2 className="text-[18px] font-extrabold text-gray-900 mb-2">วิดีโอคอลล่มครับ</h2>
           <p className="text-gray-500 text-[13px] leading-relaxed mb-5">
-            เกิดข้อผิดพลาดในระบบวิดีโอคอล<br />ส่วนอื่นของแอปยังทำงานได้ปกติค่ะ
+            เกิดข้อผิดพลาดในระบบวิดีโอคอล<br />ส่วนอื่นของแอปยังทำงานได้ปกติครับ
           </p>
           <div className="flex flex-col gap-2">
             <button

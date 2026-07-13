@@ -18,7 +18,7 @@ export const APP_SUBTITLE = 'ระบบจัดการติวสายว
 export const APP_PWA_DESCRIPTION = 'Science, Math & Civil Engineering tutoring portal';
 
 // ป้ายกำกับช่อง "ครูผู้สอน" บนหน้า Login (บรรทัดบน)
-export const TEACHER_ROLE_LABEL = 'พี่แพท';
+export const TEACHER_ROLE_LABEL = 'ภัทรวิชญ์';
 
 // ป้ายกำกับรอง "ครูผู้สอน" บนหน้า Login (บรรทัดล่าง)
 export const TEACHER_ROLE_SUBLABEL = 'ผู้สอน / Admin';
@@ -27,7 +27,7 @@ export const TEACHER_ROLE_SUBLABEL = 'ผู้สอน / Admin';
 export const STUDENT_PORTAL_LINK_TEXT = 'เข้า Student Portal →';
 
 // ข้อความใต้ปุ่ม Student Portal อธิบายวิธีเข้าระบบ
-export const STUDENT_CODE_HINT = 'ใช้รหัสที่ได้รับจากพี่แพทเข้าระบบได้เลยค่ะ';
+export const STUDENT_CODE_HINT = 'ใช้รหัสที่ได้รับจากภัทรวิชญ์เข้าระบบได้เลยครับ';
 
 // URL ของ Privacy Policy — แสดงที่ footer หน้า Login (จำเป็นสำหรับ Google OAuth verification)
 // ไฟล์จริงอยู่ที่ public/privacy.html และถูก serve ที่ /privacy ผ่าน vercel.json rewrite
@@ -77,9 +77,9 @@ export const CANCEL_CLASS_REASONS = [
   'นักเรียนขอเลื่อน',
   'นักเรียนติดธุระ',
   'นักเรียนป่วย',
-  'พี่แพทขอเลื่อน',
-  'พี่แพทติดธุระ',
-  'พี่แพทป่วย',
+  'ภัทรวิชญ์ขอเลื่อน',
+  'ภัทรวิชญ์ติดธุระ',
+  'ภัทรวิชญ์ป่วย',
   'วันหยุดนักขัตฤกษ์',
   'อื่นๆ',
 ];

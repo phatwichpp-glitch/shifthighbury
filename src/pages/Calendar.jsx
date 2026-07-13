@@ -127,7 +127,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
         if (lineId) {
           const dateLabel = new Date(booking.requestedDate + 'T12:00:00').toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'long' });
           const timeLabel = booking.timeStart ? `${booking.timeStart}${booking.timeEnd ? `–${booking.timeEnd}` : ''}` : '';
-          const msg = `✅ ยืนยันการจองวันเรียนแล้วค่ะ\n📅 ${dateLabel}${timeLabel ? `\n⏰ ${timeLabel}` : ''}${booking.subject ? `\n📚 ${booking.subject}` : ''}\nรอพบกันนะคะ!`;
+          const msg = `✅ ยืนยันการจองวันเรียนแล้วครับ\n📅 ${dateLabel}${timeLabel ? `\n⏰ ${timeLabel}` : ''}${booking.subject ? `\n📚 ${booking.subject}` : ''}\nรอพบกันนะครับ!`;
           await sendLineMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineId, msg).catch(() => {});
         }
       }
@@ -149,7 +149,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
         const lineId = stu?.[STUDENT_LINE_USER_ID];
         if (lineId) {
           const dateLabel = new Date(booking.requestedDate + 'T12:00:00').toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
-          const msg = `❌ ขออภัยค่ะ ไม่สามารถยืนยันการจองวันที่ ${dateLabel} ได้${note ? `\nเหตุผล: ${note}` : ''}\nกรุณาติดต่อครูเพื่อนัดเวลาใหม่นะคะ`;
+          const msg = `❌ ขออภัยครับ ไม่สามารถยืนยันการจองวันที่ ${dateLabel} ได้${note ? `\nเหตุผล: ${note}` : ''}\nกรุณาติดต่อครูเพื่อนัดเวลาใหม่นะครับ`;
           await sendLineMessage(settingsRow[SETTINGS.LINE_WORKER_URL], settingsRow[SETTINGS.LINE_TOKEN], lineId, msg).catch(() => {});
         }
       }
@@ -205,7 +205,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
 
   const handleStartClass = (zoomLinkToOpen) => {
     const link = zoomLinkToOpen || zoomLinksPool[0]?.url || zoomLink || '';
-    if (!link) { toast('ยังไม่ได้ตั้งค่าลิงก์ Zoom ค่ะ', 'error'); return; }
+    if (!link) { toast('ยังไม่ได้ตั้งค่าลิงก์ Zoom ครับ', 'error'); return; }
     window.open(link, '_blank', 'noopener,noreferrer');
     const startedAt = Date.now();
     setZoomTimer({ active: true, startedAt, currentLinkIdx: -1, currentLink: link });
@@ -233,11 +233,11 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
       nextIdx = (zoomTimer.currentLinkIdx + 1) % pool.length;
       nextLink = pool[nextIdx]?.url || zoomLink;
     }
-    if (!nextLink) { toast('ไม่มีลิงก์ Zoom สำรองในคลังค่ะ', 'error'); return; }
+    if (!nextLink) { toast('ไม่มีลิงก์ Zoom สำรองในคลังครับ', 'error'); return; }
 
     // C1: Confirm before switching
     const ok = await confirm(
-      `สลับห้อง Zoom ใช่ไหมคะ?\n\nห้องถัดไป: ${nextLink}\n\nนักเรียนจะเห็น banner ใน Portal ภายใน 2 วินาที`,
+      `สลับห้อง Zoom ใช่ไหมครับ?\n\nห้องถัดไป: ${nextLink}\n\nนักเรียนจะเห็น banner ใน Portal ภายใน 2 วินาที`,
       false,
     );
     if (!ok) return;
@@ -270,7 +270,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
           settingsRow[SETTINGS.LINE_WORKER_URL],
           settingsRow[SETTINGS.LINE_TOKEN],
           lineUserId,
-          `ย้ายห้องใหม่นะคะ เข้าเรียนผ่าน Portal ได้เลย 👉 ${portalUrl}`,
+          `ย้ายห้องใหม่นะครับ เข้าเรียนผ่าน Portal ได้เลย 👉 ${portalUrl}`,
         ).catch(() => {});
       }
     }
@@ -279,11 +279,11 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
     setZoomTimer(newTimer);
     // C2: Update persisted session
     try { localStorage.setItem('zw_zoom_session', JSON.stringify({ link: nextLink, startedAt: newTimer.startedAt, currentLinkIdx: nextIdx })); } catch {}
-    toast('สลับห้อง Zoom แล้ว — ส่ง LINE และ signal แล้วค่ะ', 'success');
+    toast('สลับห้อง Zoom แล้ว — ส่ง LINE และ signal แล้วครับ', 'success');
   };
 
   const handleSendClassReminder = async (scheduleData, dateStr, groupId = null) => {
-    if (!canSendLine(settingsRow)) { toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error'); return; }
+    if (!canSendLine(settingsRow)) { toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error'); return; }
     const lineToken = settingsRow[SETTINGS.LINE_TOKEN];
     const lineWorkerUrl = settingsRow[SETTINGS.LINE_WORKER_URL];
     setSendingZoomFor(scheduleData[SCHEDULE.ID]);
@@ -297,7 +297,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
           const portalBase = `${window.location.origin}/portal`;
           const msg = buildGroupPortalMessage({ groupName: grpName, studentName: grpName, subject: scheduleData[SCHEDULE.SUBJECT] || '', timeStart: scheduleData[SCHEDULE.TIME_START] || '', timeEnd: scheduleData[SCHEDULE.TIME_END] || '', portalUrl: portalBase, stuCode: '', settingsRow });
           await sendLineMessage(lineWorkerUrl, lineToken, grpLineId, msg);
-          toast(`ส่งแจ้งเตือนเข้ากลุ่ม "${grpName}" แล้วค่ะ`, 'success');
+          toast(`ส่งแจ้งเตือนเข้ากลุ่ม "${grpName}" แล้วครับ`, 'success');
         } else {
           let sentCount = 0;
           for (const sid of memberIds) {
@@ -310,7 +310,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
             await sendLineMessage(lineWorkerUrl, lineToken, target, msg);
             sentCount++;
           }
-          toast(`ส่งแจ้งเตือนให้กลุ่ม ${grpName} (${sentCount} คน) แล้วค่ะ`, 'success');
+          toast(`ส่งแจ้งเตือนให้กลุ่ม ${grpName} (${sentCount} คน) แล้วครับ`, 'success');
         }
       } else {
         const student = students.find(st => st[STUDENT.ID] === scheduleData[SCHEDULE.STUDENT_ID]);
@@ -318,12 +318,12 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
         const lineUserId = student?.[STUDENT_LINE_USER_ID] || '';
         const sendTarget = lineGroupId || lineUserId;
         const studentName = student?.[STUDENT.NAME] || getStudentName(scheduleData[SCHEDULE.STUDENT_ID]);
-        if (!sendTarget) { toast(`${studentName} ยังไม่ได้เชื่อมต่อ LINE ค่ะ`, 'error'); setSendingZoomFor(null); return; }
+        if (!sendTarget) { toast(`${studentName} ยังไม่ได้เชื่อมต่อ LINE ครับ`, 'error'); setSendingZoomFor(null); return; }
         const stuCode = buildStudentLoginCode(student?.[STUDENT.NICKNAME], student?.[STUDENT.NAME]);
         const portalUrl = `${window.location.origin}/portal?code=${stuCode}`;
         const msg = buildPortalMessage({ studentName, subject: scheduleData[SCHEDULE.SUBJECT] || '', timeStart: scheduleData[SCHEDULE.TIME_START] || '', timeEnd: scheduleData[SCHEDULE.TIME_END] || '', portalUrl, stuCode, settingsRow });
         await sendLineMessage(lineWorkerUrl, lineToken, sendTarget, msg);
-        toast(lineGroupId ? `ส่งแจ้งเตือนเข้ากลุ่มของ ${studentName} แล้วค่ะ` : `ส่งแจ้งเตือนให้ ${studentName} แล้วค่ะ`, 'success');
+        toast(lineGroupId ? `ส่งแจ้งเตือนเข้ากลุ่มของ ${studentName} แล้วครับ` : `ส่งแจ้งเตือนให้ ${studentName} แล้วครับ`, 'success');
       }
     } catch (err) {
       toastLineError(toast, err, '/settings');
@@ -335,7 +335,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
   const handleConfirmRescheduleTime = async ({ newTimeStart, newTimeEnd, newHours, notifyLine }) => {
     if (!rescheduleTimeTarget) return;
     const { schedule: s, dateStr } = rescheduleTimeTarget;
-    if (!dateStr) { toast('ไม่พบวันที่ — ไม่สามารถเลื่อนเวลาได้ค่ะ', 'error'); return; }
+    if (!dateStr) { toast('ไม่พบวันที่ — ไม่สามารถเลื่อนเวลาได้ครับ', 'error'); return; }
     setIsSavingReschedule(true);
     try {
       await addCancellation(accessToken, dbId, ['CAN-' + Date.now(), s[SCHEDULE.ID], s[SCHEDULE.STUDENT_ID], dateStr, 'เลื่อนเวลา', dateStr, '', new Date().toLocaleString('th-TH'), `เลื่อนจาก ${s[SCHEDULE.TIME_START]}–${s[SCHEDULE.TIME_END]} → ${newTimeStart}–${newTimeEnd}`]);
@@ -352,11 +352,11 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
           const dateLabel = new Date(dateStr + 'T12:00:00').toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'long' });
           const stuCode = buildStudentLoginCode(student?.[STUDENT.NICKNAME], student?.[STUDENT.NAME]);
           const footnote = buildLineFootnote({ portalUrl: `${window.location.origin}/portal`, studentCode: stuCode });
-          const msg = ['⏰ แจ้งเลื่อนเวลาเรียนค่ะ', '', `สวัสดีค่ะคุณ${student[STUDENT.NAME]} 😊`, `คาบเรียนวัน${dateLabel}${s[SCHEDULE.SUBJECT] ? ` วิชา ${s[SCHEDULE.SUBJECT]}` : ''} ขอเลื่อนเวลานะคะ`, '', `🕐 เวลาใหม่: ${newTimeStart}–${newTimeEnd} น.`, '', 'ขออภัยในความไม่สะดวกค่ะ 🙏', footnote].join('\n');
-          try { await sendLineMessage(lineWorkerUrl, lineToken, lineUserId, msg); toast(`แจ้งเวลาใหม่ทาง LINE ให้ ${student[STUDENT.NAME]} แล้วค่ะ`, 'success'); } catch (e) { toastLineError(toast, e, '/settings'); }
+          const msg = ['⏰ แจ้งเลื่อนเวลาเรียนครับ', '', `สวัสดีครับคุณ${student[STUDENT.NAME]} 😊`, `คาบเรียนวัน${dateLabel}${s[SCHEDULE.SUBJECT] ? ` วิชา ${s[SCHEDULE.SUBJECT]}` : ''} ขอเลื่อนเวลานะครับ`, '', `🕐 เวลาใหม่: ${newTimeStart}–${newTimeEnd} น.`, '', 'ขออภัยในความไม่สะดวกครับ 🙏', footnote].join('\n');
+          try { await sendLineMessage(lineWorkerUrl, lineToken, lineUserId, msg); toast(`แจ้งเวลาใหม่ทาง LINE ให้ ${student[STUDENT.NAME]} แล้วครับ`, 'success'); } catch (e) { toastLineError(toast, e, '/settings'); }
         }
       }
-      toast(`เลื่อนเวลา ${getStudentName(s[SCHEDULE.STUDENT_ID])} เป็น ${newTimeStart}–${newTimeEnd} น. แล้วค่ะ`, 'success');
+      toast(`เลื่อนเวลา ${getStudentName(s[SCHEDULE.STUDENT_ID])} เป็น ${newTimeStart}–${newTimeEnd} น. แล้วครับ`, 'success');
       setRescheduleTimeTarget(null); refresh({ force: true });
     } catch (err) {
       toast(`เกิดข้อผิดพลาด: ${err.message}`, 'error');
@@ -392,10 +392,10 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
     setIsLoggingSubmitting(true);
     const { scheduleData, dateStr, subject, hours, minutes, note, listeningScore, speakingScore, readingScore, writingScore } = loggingSession;
     const totalHours = Math.round((parseFloat(hours || '0') + parseInt(minutes || '0') / 60) * 100) / 100;
-    if (totalHours <= 0) { toast('กรุณากรอกจำนวนชั่วโมงหรือนาทีค่ะ', 'error'); setIsLoggingSubmitting(false); isLoggingInFlight.current = false; return; }
+    if (totalHours <= 0) { toast('กรุณากรอกจำนวนชั่วโมงหรือนาทีครับ', 'error'); setIsLoggingSubmitting(false); isLoggingInFlight.current = false; return; }
     const sessionCount  = sessions.filter(se => se[SESSION.STUDENT_ID] === scheduleData[SCHEDULE.STUDENT_ID] && se[SESSION.DATE] === dateStr && se[SESSION.DELETED] !== 'TRUE').length;
     const scheduleCount = schedules.filter(sc => sc[SCHEDULE.DELETED] !== 'TRUE' && sc[SCHEDULE.STUDENT_ID] === scheduleData[SCHEDULE.STUDENT_ID] && scheduleOccursOnDate(sc, dateStr)).length;
-    if (sessionCount >= Math.max(1, scheduleCount)) { toast('บันทึกครบทุกคาบสำหรับวันนี้แล้วค่ะ', 'error'); setLoggingSession(null); setIsLoggingSubmitting(false); isLoggingInFlight.current = false; return; }
+    if (sessionCount >= Math.max(1, scheduleCount)) { toast('บันทึกครบทุกคาบสำหรับวันนี้แล้วครับ', 'error'); setLoggingSession(null); setIsLoggingSubmitting(false); isLoggingInFlight.current = false; return; }
     const studentIdx = students.findIndex(s => s[STUDENT.ID] === scheduleData[SCHEDULE.STUDENT_ID]);
     const stu = studentIdx >= 0 ? students[studentIdx] : null;
 
@@ -449,15 +449,15 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
 
   const handleSubmitSchedule = async (formData, editing, date) => {
     if (isSubmitting) return;
-    if (!date) return toast('ไม่พบวันที่ — กรุณาเลือกวันในปฏิทินก่อนค่ะ', 'error');
+    if (!date) return toast('ไม่พบวันที่ — กรุณาเลือกวันในปฏิทินก่อนครับ', 'error');
     const isGroup = !!formData.group_id;
-    if (!isGroup && !formData.student_id) return toast('กรุณาเลือกนักเรียนค่ะ', 'error');
-    if (isGroup && !formData.group_id) return toast('กรุณาเลือกกลุ่มเรียนค่ะ', 'error');
+    if (!isGroup && !formData.student_id) return toast('กรุณาเลือกนักเรียนครับ', 'error');
+    if (isGroup && !formData.group_id) return toast('กรุณาเลือกกลุ่มเรียนครับ', 'error');
     if (isGroup && !editing) {
       const grp = groups.find(g => g[GROUP.ID] === formData.group_id);
-      if (!grp) return toast('ไม่พบกลุ่มเรียนค่ะ', 'error');
+      if (!grp) return toast('ไม่พบกลุ่มเรียนครับ', 'error');
       const memberIds = (grp[GROUP.STUDENT_IDS] || '').split(',').map(s => s.trim()).filter(Boolean);
-      if (memberIds.length === 0) return toast('กลุ่มนี้ยังไม่มีนักเรียนค่ะ', 'error');
+      if (memberIds.length === 0) return toast('กลุ่มนี้ยังไม่มีนักเรียนครับ', 'error');
       setIsSubmitting(true);
       try {
         for (const sid of memberIds) {
@@ -484,7 +484,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
   };
 
   const handleDeleteSchedule = async (s, rowIndex) => {
-    const ok = await confirm(`ลบตารางสอน "${getStudentName(s[SCHEDULE.STUDENT_ID])}" วันที่ ${s[SCHEDULE.DATE]} ออกถาวรใช่ไหมคะ?`, true);
+    const ok = await confirm(`ลบตารางสอน "${getStudentName(s[SCHEDULE.STUDENT_ID])}" วันที่ ${s[SCHEDULE.DATE]} ออกถาวรใช่ไหมครับ?`, true);
     if (!ok) return;
     if (s[SCHEDULE.GCAL_EVENT_ID]) { try { await deleteCalendarEvent(accessToken, s[SCHEDULE.GCAL_EVENT_ID]); } catch (e) { console.warn('[GCal]', e); } }
     const success = await runWithFeedback(() => softDeleteSchedule(accessToken, dbId, rowIndex), toast, 'ลบตารางสอนถาวรแล้ว');
@@ -517,7 +517,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
   };
 
   const handleCreateDB = async () => {
-    const ok = await confirm('ระบบจะสร้างฐานข้อมูลใหม่ใน Google Drive ของคุณ ยืนยันใช่ไหมคะ?');
+    const ok = await confirm('ระบบจะสร้างฐานข้อมูลใหม่ใน Google Drive ของคุณ ยืนยันใช่ไหมครับ?');
     if (!ok) return;
     await runWithFeedback(async () => { const newDbId = await setupNewDatabase(accessToken); await initDatabaseHeaders(accessToken, newDbId); dbStore.set(newDbId); setDbId(newDbId); }, toast, 'ติดตั้งฐานข้อมูลสำเร็จ!');
   };
@@ -551,7 +551,7 @@ export function Calendar({ accessToken, dbId, setDbId, toast }) {
       {showSessionReminder && (
         <div className="mb-4 flex items-center gap-3 px-4 py-3 bg-amber-50 border border-amber-200 rounded-[12px]">
           <Clock className="w-4 h-4 text-amber-600 flex-shrink-0" />
-          <p className="flex-1 text-[13px] font-semibold text-amber-800">⏰ ครบ 40 นาทีแล้ว — อย่าลืมบันทึกคาบนะคะ</p>
+          <p className="flex-1 text-[13px] font-semibold text-amber-800">⏰ ครบ 40 นาทีแล้ว — อย่าลืมบันทึกคาบนะครับ</p>
           <button onClick={() => setShowSessionReminder(false)} className="text-[12px] text-amber-600 hover:text-amber-800 px-2 py-1">ปิด</button>
         </div>
       )}

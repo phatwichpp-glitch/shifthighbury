@@ -67,7 +67,7 @@ export function Dashboard({ accessToken, dbId, toast }) {
     <div className="p-6 max-w-6xl mx-auto space-y-6">
       <h2 className="text-[24px] font-bold text-gray-900 flex items-center gap-2"><BarChart2 className="w-6 h-6 text-gray-600" />Dashboard</h2>
 
-      <StateDisplay loading={loading} error={error} onRetry={refresh} empty={!loading && !error && students.length === 0 && sessions.length === 0} emptyMessage="ยังไม่มีข้อมูลค่ะ — กรุณาเพิ่มนักเรียนและบันทึกการสอนก่อนค่ะ">
+      <StateDisplay loading={loading} error={error} onRetry={refresh} empty={!loading && !error && students.length === 0 && sessions.length === 0} emptyMessage="ยังไม่มีข้อมูลครับ — กรุณาเพิ่มนักเรียนและบันทึกการสอนก่อนครับ">
       <div className="bg-white rounded-[16px] border border-gray-200 p-5 shadow-sm">
         <h3 className="font-semibold text-gray-900 mb-4 text-[16px]">ภาพรวมรายเดือน (6 เดือนล่าสุด)</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -109,7 +109,7 @@ export function Dashboard({ accessToken, dbId, toast }) {
         </div>
 
         {!selectedStudentId ? (
-          <p className="text-gray-400 text-center py-8 text-[14px]">เลือกนักเรียนเพื่อดูกราฟค่ะ</p>
+          <p className="text-gray-400 text-center py-8 text-[14px]">เลือกนักเรียนเพื่อดูกราฟครับ</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -136,7 +136,7 @@ export function Dashboard({ accessToken, dbId, toast }) {
                   </RadarChart>
                 </ResponsiveContainer>
               ) : (
-                <p className="text-gray-400 text-center py-8 text-[13px]">ยังไม่มีข้อมูลคะแนนค่ะ</p>
+                <p className="text-gray-400 text-center py-8 text-[13px]">ยังไม่มีข้อมูลคะแนนครับ</p>
               )}
             </div>
           </div>

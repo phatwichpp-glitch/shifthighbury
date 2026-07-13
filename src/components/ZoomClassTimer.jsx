@@ -56,8 +56,8 @@ export default function ZoomClassTimer({ active, startedAt, currentLink, linksPo
   const canSwitch = linksPool.length > 1;
   const showBanner = (isAmber && !shownAmber) || (isRed && !shownRed);
   const bannerMsg = isRed
-    ? 'เหลือ 5 นาที — ควรสลับห้อง Zoom ค่ะ!'
-    : 'ใกล้ครบ 40 นาที — สลับห้อง Zoom ได้เลยค่ะ';
+    ? 'เหลือ 5 นาที — ควรสลับห้อง Zoom ครับ!'
+    : 'ใกล้ครบ 40 นาที — สลับห้อง Zoom ได้เลยครับ';
 
   return (
     <div className="mb-4 space-y-2">

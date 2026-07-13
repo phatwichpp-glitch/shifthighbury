@@ -592,7 +592,7 @@ export default function GroupCallModal({ groupId, groupMembers = [], onClose, to
                 role="teacher"
                 canStudentDraw={false}
                 studentId={groupId}
-                onPermissionToggle={() => toast?.('อนุญาตนักเรียนเขียนยังไม่รองรับสำหรับคาบกลุ่มค่ะ', 'info')}
+                onPermissionToggle={() => toast?.('อนุญาตนักเรียนเขียนยังไม่รองรับสำหรับคาบกลุ่มครับ', 'info')}
                 onStrokeEnd={(stroke, page) => broadcastBoardData({ type: 'DRAW', stroke, page })}
                 onStrokePoint={(data) => broadcastBoardData({ type: 'DRAW_POINT', data })}
                 onPageSync={(page) => broadcastBoardData({ type: 'PAGE', page })}

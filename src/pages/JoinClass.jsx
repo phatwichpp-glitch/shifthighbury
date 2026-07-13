@@ -49,7 +49,7 @@ export function JoinClass() {
     if (!key) { setCheckingSession(false); return; }
     if (!silent && !CODE_FORMAT.test(key.trim())) {
       setCheckingSession(false);
-      setError('Invalid code format — please check the code your teacher gave you · รูปแบบรหัสไม่ถูกต้อง ลองตรวจสอบอีกครั้งนะคะ');
+      setError('Invalid code format — please check the code your teacher gave you · รูปแบบรหัสไม่ถูกต้อง ลองตรวจสอบอีกครั้งนะครับ');
       return;
     }
     setLoading(true);
@@ -58,7 +58,7 @@ export function JoinClass() {
       timedOut = true;
       setLoading(false);
       setCheckingSession(false);
-      if (!silent) setError('Connection timed out — please check your internet and try again · เชื่อมต่อนานเกินไป ลองใหม่อีกครั้งนะคะ');
+      if (!silent) setError('Connection timed out — please check your internet and try again · เชื่อมต่อนานเกินไป ลองใหม่อีกครั้งนะครับ');
     }, 10000);
     try {
       const [allStudents, allGroups] = await Promise.all([
@@ -70,7 +70,7 @@ export function JoinClass() {
       const matchStudent = allStudents.find(s => s[STUDENT.DELETED] !== 'TRUE' && buildStudentLoginCode(s[STUDENT.NICKNAME], s[STUDENT.NAME]) === normalizedKey);
       const matchGroup   = (allGroups || []).find(g => g[GROUP.DELETED] !== 'TRUE' && (g[GROUP.CODE] || '').toUpperCase() === normalizedKey);
       if (!matchStudent && !matchGroup) {
-        if (!silent && !timedOut) setError('Code not found — please check the spelling or ask your teacher · ไม่พบรหัสนี้ ลองตรวจสอบอีกครั้งนะคะ');
+        if (!silent && !timedOut) setError('Code not found — please check the spelling or ask your teacher · ไม่พบรหัสนี้ ลองตรวจสอบอีกครั้งนะครับ');
         return;
       }
 
@@ -110,7 +110,7 @@ export function JoinClass() {
     } catch (err) {
       if (!silent && !timedOut) {
         console.warn('[JOIN VERIFY]', err.name, err.message);
-        setError('Could not join the class — please try again or tell your teacher · เข้าห้องเรียนไม่สำเร็จ ลองใหม่หรือแจ้งครูนะคะ');
+        setError('Could not join the class — please try again or tell your teacher · เข้าห้องเรียนไม่สำเร็จ ลองใหม่หรือแจ้งครูนะครับ');
       }
     } finally {
       clearTimeout(timer);

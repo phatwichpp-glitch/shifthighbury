@@ -125,11 +125,11 @@ function scheduleOccursOnDate(schedule, dateStr) {
 // ── Message template (ported from src/lib/business.js buildPortalMessage) ───
 
 const DEFAULT_TPL_PORTAL_REMINDER =
-`สวัสดีค่ะคุณ{name} 😊
-ใกล้ถึงเวลาเรียนแล้วนะคะ{subject}
+`สวัสดีครับคุณ{name} 😊
+ใกล้ถึงเวลาเรียนแล้วนะครับ{subject}
 {time}
 
-📱 เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะคะ:
+📱 เข้า Portal เพื่อกดลิงก์เข้าห้องเรียนได้เลยนะครับ:
 👉 {url}
 Class Code: {class_code}
 Login Code: {code}`;

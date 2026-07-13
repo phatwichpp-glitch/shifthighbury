@@ -56,7 +56,7 @@ export function PackageHistoryModal({ student, sessions, receipts, onClose }) {
           <div>
             <p className="text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" /> ประวัติการเติมแพ็กเกจ</p>
             {topUpHistory.length === 0 ? (
-              <p className="text-[13px] text-gray-400 py-3 text-center">ยังไม่มีประวัติการเติมค่ะ</p>
+              <p className="text-[13px] text-gray-400 py-3 text-center">ยังไม่มีประวัติการเติมครับ</p>
             ) : (
               <div className="space-y-1.5">
                 {topUpHistory.map((r, i) => (
@@ -75,7 +75,7 @@ export function PackageHistoryModal({ student, sessions, receipts, onClose }) {
           <div>
             <p className="text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-orange-400 inline-block" /> ประวัติการใช้ชั่วโมง</p>
             {usageHistory.length === 0 ? (
-              <p className="text-[13px] text-gray-400 py-3 text-center">ยังไม่มีคาบที่ใช้แพ็กเกจค่ะ</p>
+              <p className="text-[13px] text-gray-400 py-3 text-center">ยังไม่มีคาบที่ใช้แพ็กเกจครับ</p>
             ) : (
               <div className="space-y-1.5">
                 {usageHistory.map((s, i) => (
@@ -94,12 +94,12 @@ export function PackageHistoryModal({ student, sessions, receipts, onClose }) {
 
         {currentHours <= 2 && currentHours > 0 && (
           <div className="px-5 py-3 bg-red-50 border-t border-red-100">
-            <p className="text-[13px] text-red-700 font-semibold text-center flex items-center justify-center gap-1.5"><AlertTriangle className="w-4 h-4" /> แพ็กเกจใกล้หมดแล้ว — เหลือ {currentHours} ชม. ควรเติมเพิ่มค่ะ</p>
+            <p className="text-[13px] text-red-700 font-semibold text-center flex items-center justify-center gap-1.5"><AlertTriangle className="w-4 h-4" /> แพ็กเกจใกล้หมดแล้ว — เหลือ {currentHours} ชม. ควรเติมเพิ่มครับ</p>
           </div>
         )}
         {currentHours === 0 && (
           <div className="px-5 py-3 bg-red-50 border-t border-red-100">
-            <p className="text-[13px] text-red-700 font-semibold text-center flex items-center justify-center gap-1.5"><AlertTriangle className="w-4 h-4" /> แพ็กเกจหมดแล้ว — กรุณาเติมก่อนสอนครั้งถัดไปค่ะ</p>
+            <p className="text-[13px] text-red-700 font-semibold text-center flex items-center justify-center gap-1.5"><AlertTriangle className="w-4 h-4" /> แพ็กเกจหมดแล้ว — กรุณาเติมก่อนสอนครั้งถัดไปครับ</p>
           </div>
         )}
       </div>

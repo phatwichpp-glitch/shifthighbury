@@ -143,7 +143,7 @@ export function CancelClassModal({ schedule, studentName, dateStr, schedulesOnRe
                         • {c[SCHEDULE.TIME_START]}–{c[SCHEDULE.TIME_END]} · {getStudentName ? getStudentName(c[SCHEDULE.STUDENT_ID]) : c[SCHEDULE.STUDENT_ID]}
                       </p>
                     ))}
-                    <p className="text-[11px] text-red-500 mt-1">ยังบันทึกได้ แต่ควรเปลี่ยนเวลาค่ะ</p>
+                    <p className="text-[11px] text-red-500 mt-1">ยังบันทึกได้ แต่ควรเปลี่ยนเวลาครับ</p>
                   </div>
                 )}
                 {rescheduleDate && conflicts.length === 0 && rescheduleTimeStart && (

@@ -181,5 +181,5 @@ All UI strings are hardcoded **Thai** directly in the JSX (with some Chinese con
 
 ### Deployment
 
-- Frontend: Vercel — `vercel.json` rewrites all routes to `index.html` (SPA), sets `Cross-Origin-Opener-Policy: same-origin-allow-popups` (required for Google OAuth popup), and caches `/assets/*` immutably with `no-cache` on `index.html`.
+- Frontend: Vercel — `vercel.json` rewrites `/privacy` → `/privacy.html` (static, standalone page — not part of the SPA router) and all other routes to `index.html` (SPA), sets `Cross-Origin-Opener-Policy: same-origin-allow-popups` (required for Google OAuth popup), and caches `/assets/*` immutably with `no-cache, no-store` on `index.html`.
 - Signaling: Cloudflare Workers — config in `webrtc-signaling/wrangler.jsonc`

@@ -46,15 +46,15 @@ export function SendTemplateModal({ student, settingsRow, lineOAEnabled, invoice
   const hasExtra = Object.values(needsExtra).some(Boolean);
 
   const handleSendLine = async () => {
-    if (!hasLINE) { toast(`${studentName} ยังไม่มี LINE User ID ค่ะ`, 'error'); return; }
-    if (!canSendLine(settingsRow)) { toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าค่ะ', 'error'); return; }
-    if (settingsRow?.[SETTINGS.SEND_TEMPLATES] === 'FALSE') { toast('การส่ง Template ทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ค่ะ', 'error'); return; }
+    if (!hasLINE) { toast(`${studentName} ยังไม่มี LINE User ID ครับ`, 'error'); return; }
+    if (!canSendLine(settingsRow)) { toast('LINE OA ถูกปิดหรือยังไม่ได้ตั้งค่า — ตรวจสอบที่หน้าตั้งค่าครับ', 'error'); return; }
+    if (settingsRow?.[SETTINGS.SEND_TEMPLATES] === 'FALSE') { toast('การส่ง Template ทาง LINE ถูกปิดอยู่ — เปิดได้ที่หน้าตั้งค่า LINE OA ครับ', 'error'); return; }
     const lineToken = settingsRow[SETTINGS.LINE_TOKEN];
     const lineWorkerUrl = settingsRow[SETTINGS.LINE_WORKER_URL];
     setIsSending(true);
     try {
       await sendLineMessage(lineWorkerUrl, lineToken, lineUserId, filledText);
-      toast(`ส่ง LINE ให้ ${studentName} แล้วค่ะ`, 'success');
+      toast(`ส่ง LINE ให้ ${studentName} แล้วครับ`, 'success');
       onClose();
     } catch (err) {
       toast(`ส่งไม่สำเร็จ: ${err.message}`, 'error');
@@ -102,7 +102,7 @@ export function SendTemplateModal({ student, settingsRow, lineOAEnabled, invoice
                       <button key={r} type="button" onClick={() => setExtraVars(v => ({ ...v, reason: r }))} className={`px-2.5 py-1 rounded-full text-[12px] font-medium border transition-all ${extraVars.reason === r ? 'bg-amber-500 text-white border-amber-500' : 'bg-white text-gray-600 border-gray-200 hover:border-amber-300 hover:bg-amber-50'}`}>{r}</button>
                     ))}
                   </div>
-                  <input value={extraVars.reason} onChange={e => setExtraVars(v => ({ ...v, reason: e.target.value }))} className={inputClasses} placeholder="หรือพิมพ์เหตุผลเองได้ค่ะ" />
+                  <input value={extraVars.reason} onChange={e => setExtraVars(v => ({ ...v, reason: e.target.value }))} className={inputClasses} placeholder="หรือพิมพ์เหตุผลเองได้ครับ" />
                 </div>
               )}
               {needsExtra.skill && (
@@ -113,7 +113,7 @@ export function SendTemplateModal({ student, settingsRow, lineOAEnabled, invoice
                       <button key={sk} type="button" onClick={() => setExtraVars(v => ({ ...v, skill: sk }))} className={`px-2.5 py-1 rounded-full text-[12px] font-medium border transition-all ${extraVars.skill === sk ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:bg-blue-50'}`}>{sk}</button>
                     ))}
                   </div>
-                  <input value={extraVars.skill} onChange={e => setExtraVars(v => ({ ...v, skill: e.target.value }))} className={inputClasses} placeholder="หรือพิมพ์ทักษะเองได้ค่ะ" />
+                  <input value={extraVars.skill} onChange={e => setExtraVars(v => ({ ...v, skill: e.target.value }))} className={inputClasses} placeholder="หรือพิมพ์ทักษะเองได้ครับ" />
                 </div>
               )}
               {needsExtra.amount && (
@@ -142,8 +142,8 @@ export function SendTemplateModal({ student, settingsRow, lineOAEnabled, invoice
                     </>
                   ) : (
                     <div>
-                      <p className="text-[11px] text-green-700 bg-green-50 border border-green-100 rounded-[8px] px-3 py-2 mb-2 flex items-center gap-1.5"><Check className="w-3.5 h-3.5" /> ไม่มีบิลค้างชำระค่ะ</p>
-                      <input type="text" value={extraVars.amount} onChange={e => setExtraVars(v => ({ ...v, amount: e.target.value }))} className={inputClasses} placeholder="พิมพ์ยอดเองได้ค่ะ" />
+                      <p className="text-[11px] text-green-700 bg-green-50 border border-green-100 rounded-[8px] px-3 py-2 mb-2 flex items-center gap-1.5"><Check className="w-3.5 h-3.5" /> ไม่มีบิลค้างชำระครับ</p>
+                      <input type="text" value={extraVars.amount} onChange={e => setExtraVars(v => ({ ...v, amount: e.target.value }))} className={inputClasses} placeholder="พิมพ์ยอดเองได้ครับ" />
                     </div>
                   )}
                 </div>
@@ -162,7 +162,7 @@ export function SendTemplateModal({ student, settingsRow, lineOAEnabled, invoice
                       ));
                     })()}
                   </div>
-                  <input value={extraVars.due} onChange={e => setExtraVars(v => ({ ...v, due: e.target.value }))} className={inputClasses} placeholder="หรือพิมพ์กำหนดเองได้ค่ะ" />
+                  <input value={extraVars.due} onChange={e => setExtraVars(v => ({ ...v, due: e.target.value }))} className={inputClasses} placeholder="หรือพิมพ์กำหนดเองได้ครับ" />
                 </div>
               )}
             </div>
@@ -175,7 +175,7 @@ export function SendTemplateModal({ student, settingsRow, lineOAEnabled, invoice
         </div>
 
         <div className="px-5 py-4 border-t border-gray-100 flex gap-2 flex-wrap">
-          <CopyButton variant="button" text={filledText} label="คัดลอก" onCopy={() => toast('คัดลอกข้อความแล้วค่ะ')} className={`${btnSecondary} flex-1 min-w-[100px] flex items-center justify-center gap-1.5`} />
+          <CopyButton variant="button" text={filledText} label="คัดลอก" onCopy={() => toast('คัดลอกข้อความแล้วครับ')} className={`${btnSecondary} flex-1 min-w-[100px] flex items-center justify-center gap-1.5`} />
           <ShareButton text={filledText} className="flex-1 min-w-[100px] px-4 py-2 bg-violet-600 text-white font-medium rounded-[8px] hover:bg-violet-700 active:scale-95 transition-all text-[14px] shadow-sm flex items-center justify-center gap-1.5" />
           {lineOAEnabled && (
             <button onClick={handleSendLine} disabled={isSending || !hasLINE} title={!hasLINE ? `${studentName} ยังไม่มี LINE User ID` : ''}

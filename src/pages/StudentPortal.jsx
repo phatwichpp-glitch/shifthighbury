@@ -270,7 +270,7 @@ export function StudentPortal() {
     const timer = setTimeout(() => {
       timedOut = true;
       setLoading(false);
-      setError('Connection timed out — please check your internet and try again · เชื่อมต่อนานเกินไป ลองใหม่อีกครั้งนะคะ');
+      setError('Connection timed out — please check your internet and try again · เชื่อมต่อนานเกินไป ลองใหม่อีกครั้งนะครับ');
     }, 10000);
     try {
       const allStudents = await getPublicStudents(activeSheetId);
@@ -301,18 +301,18 @@ export function StudentPortal() {
           setGroupMode(true);
           return;
         }
-        if (!timedOut) setError('Code not found — please check the spelling or ask your teacher · ไม่พบรหัสนี้ ลองตรวจสอบอีกครั้งนะคะ');
+        if (!timedOut) setError('Code not found — please check the spelling or ask your teacher · ไม่พบรหัสนี้ ลองตรวจสอบอีกครั้งนะครับ');
         return;
       }
       const allSessions = await getPublicSessions(activeSheetId).catch(e => {
         console.warn('[PORTAL LOAD] sessions:', e.name, e.message);
-        if (!timedOut) setError('Could not load your lessons — please refresh · โหลดประวัติการเรียนไม่สำเร็จ ลองรีเฟรชนะคะ');
+        if (!timedOut) setError('Could not load your lessons — please refresh · โหลดประวัติการเรียนไม่สำเร็จ ลองรีเฟรชนะครับ');
         return [];
       });
       const mySessions = allSessions.filter(s => s[SESSION.STUDENT_ID] === found[STUDENT.ID] && s[SESSION.DELETED] !== 'TRUE').sort((a, b) => (b[SESSION.DATE] || '').localeCompare(a[SESSION.DATE] || ''));
       const allSchedules = await getPublicSchedules(activeSheetId).catch(e => {
         console.warn('[PORTAL LOAD] schedules:', e.name, e.message);
-        if (!timedOut) setError('Could not load your schedule — please refresh · โหลดตารางเรียนไม่สำเร็จ ลองรีเฟรชนะคะ');
+        if (!timedOut) setError('Could not load your schedule — please refresh · โหลดตารางเรียนไม่สำเร็จ ลองรีเฟรชนะครับ');
         return [];
       });
       const mySchedules = allSchedules.filter(s => s[SCHEDULE.STUDENT_ID] === found[STUDENT.ID] && s[SCHEDULE.DELETED] !== 'TRUE');
@@ -327,7 +327,7 @@ export function StudentPortal() {
     } catch (err) {
       if (!timedOut) {
         console.warn('[PORTAL LOGIN]', err.name, err.message);
-        setError('Login failed — please check your internet or contact your teacher · เข้าสู่ระบบไม่สำเร็จ ลองใหม่หรือติดต่อครูนะคะ');
+        setError('Login failed — please check your internet or contact your teacher · เข้าสู่ระบบไม่สำเร็จ ลองใหม่หรือติดต่อครูนะครับ');
       }
     } finally {
       clearTimeout(timer);
@@ -395,23 +395,23 @@ export function StudentPortal() {
     const code = classCodeInput.trim().toUpperCase();
     if (code) {
       const sigUrl = import.meta.env.VITE_WEBRTC_SIGNALING_URL;
-      if (!sigUrl) { setError('System not set up yet — please contact your teacher · ระบบยังตั้งค่าไม่เสร็จ ติดต่อครูนะคะ'); return; }
+      if (!sigUrl) { setError('System not set up yet — please contact your teacher · ระบบยังตั้งค่าไม่เสร็จ ติดต่อครูนะครับ'); return; }
       setLoading(true);
       setError('');
       try {
         const res = await fetch(`${sigUrl}/class-code/${encodeURIComponent(code)}`);
-        if (!res.ok) { setError(`Class Code "${code}" not found — please check and try again · ไม่พบ Class Code นี้ ลองตรวจสอบอีกครั้งนะคะ`); setLoading(false); return; }
+        if (!res.ok) { setError(`Class Code "${code}" not found — please check and try again · ไม่พบ Class Code นี้ ลองตรวจสอบอีกครั้งนะครับ`); setLoading(false); return; }
         const { sheetId: resolvedId } = await res.json();
         setSheetId(resolvedId);
         await doLogin(key, resolvedId);
       } catch (err) {
         console.warn('[PORTAL CLASS-CODE]', err.message);
-        setError('Could not verify the Class Code — please try again · ตรวจสอบ Class Code ไม่สำเร็จ ลองใหม่นะคะ');
+        setError('Could not verify the Class Code — please try again · ตรวจสอบ Class Code ไม่สำเร็จ ลองใหม่นะครับ');
         setLoading(false);
       }
       return;
     }
-    if (!sheetId) { setError('System not set up yet — please contact your teacher · ระบบยังตั้งค่าไม่เสร็จ ติดต่อครูนะคะ'); return; }
+    if (!sheetId) { setError('System not set up yet — please contact your teacher · ระบบยังตั้งค่าไม่เสร็จ ติดต่อครูนะครับ'); return; }
     await doLogin(key);
   };
 
@@ -515,10 +515,10 @@ export function StudentPortal() {
         fetchMyBookings(student[STUDENT.ID]);
         setTimeout(() => setBookingSuccess(false), 4000);
       } else {
-        setBookingError('Could not send your booking — please try again · ส่งคำขอจองไม่สำเร็จ ลองใหม่นะคะ');
+        setBookingError('Could not send your booking — please try again · ส่งคำขอจองไม่สำเร็จ ลองใหม่นะครับ');
       }
     } catch (_) {
-      setBookingError('Could not send your booking — please check your internet and try again · ส่งไม่สำเร็จ ลองใหม่นะคะ');
+      setBookingError('Could not send your booking — please check your internet and try again · ส่งไม่สำเร็จ ลองใหม่นะครับ');
     }
     setSubmittingBooking(false);
   };

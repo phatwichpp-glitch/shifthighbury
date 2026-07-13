@@ -998,7 +998,7 @@ export default function VideoCallModal({
   const toggleScreenShare = async () => {
     if (isScreenSharing) { stopScreenShare(); return; }
     if (!peerRef.current || !peerRef.current.connected || peerRef.current.destroyed) {
-      toast?.('รอเชื่อมต่อกับอีกฝ่ายก่อนแชร์หน้าจอนะคะ', 'error');
+      toast?.('รอเชื่อมต่อกับอีกฝ่ายก่อนแชร์หน้าจอนะครับ', 'error');
       return;
     }
     try {
