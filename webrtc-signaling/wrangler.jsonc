@@ -15,7 +15,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "webrtc-signaling",
+	"name": "shifthighbury-signaling",
 	"main": "src/index.js",
 	"compatibility_date": "2026-06-22",
 	"observability": {
@@ -28,11 +28,16 @@
 	"kv_namespaces": [
 		{
 			"binding": "WEBRTC_KV",
-			"id": "6253c018cab7441e830d068afb8cc84e"
+			// TODO: ใส่ id ของ KV namespace ใหม่ (ห้ามใช้ id เดิมของ Zhongwenist —
+			// จะทำให้ config_sheet_id/line_config/pending_bookings ปนกันระหว่าง 2 แอป)
+			"id": ""
 		}
 	],
 	"vars": {
-		"VAPID_PUBLIC_KEY": "BAvJUlqYQDJARMlp_t5CNiN6DdvTephz-8WQKN1q-YEuJTMwD5NGTU0hdjmXz0kYcAVRjl7Jeoj1cXlzm9Sqt5I",
+		// TODO: สร้างคู่ใหม่ด้วย `npx web-push generate-vapid-keys` (ใช้คู่เดิมของ
+		// Zhongwenist ก็ได้ถ้าไม่อยากสร้างใหม่ — VAPID key ไม่มีข้อมูลผูกกับ sheet ใด
+		// แต่แนะนำให้แยกเพื่อความชัดเจน)
+		"VAPID_PUBLIC_KEY": "",
 		"VAPID_SUBJECT": "mailto:phatwich.pp@gmail.com",
 		// TODO: ใส่ URL หน้าเว็บจริง (Vercel) เช่น "https://your-app.vercel.app" —
 		// ใช้สร้างลิงก์ portal ในข้อความแจ้งเตือน LINE (src/reminders.js)
