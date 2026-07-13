@@ -1,0 +1,61 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ *
+ * ─────────────────────────────────────────────────────────────────────────────
+ * TODO (เจ้าของใหม่): แก้ค่าต่อไปนี้ก่อน deploy
+ * 1. สร้าง Cloudflare account ที่ https://dash.cloudflare.com
+ * 2. รัน `wrangler login` แล้วรัน `wrangler kv namespace create WEBRTC_KV`
+ *    → นำ id ที่ได้ใส่ใน kv_namespaces[0].id ด้านล่าง
+ * 3. สร้าง VAPID key pair ด้วย `npx web-push generate-vapid-keys`
+ *    → ใส่ public key ใน VAPID_PUBLIC_KEY และ .env (VITE_VAPID_PUBLIC_KEY)
+ *    → ใส่ email ของคุณใน VAPID_SUBJECT
+ *    → ใส่ private key ด้วย `wrangler secret put VAPID_PRIVATE_KEY`
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "webrtc-signaling",
+	"main": "src/index.js",
+	"compatibility_date": "2026-06-22",
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true,
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"kv_namespaces": [
+		{
+			"binding": "WEBRTC_KV",
+			"id": "6253c018cab7441e830d068afb8cc84e"
+		}
+	],
+	"vars": {
+		"VAPID_PUBLIC_KEY": "BAvJUlqYQDJARMlp_t5CNiN6DdvTephz-8WQKN1q-YEuJTMwD5NGTU0hdjmXz0kYcAVRjl7Jeoj1cXlzm9Sqt5I",
+		"VAPID_SUBJECT": "mailto:phatwich.pp@gmail.com",
+		// TODO: ใส่ URL หน้าเว็บจริง (Vercel) เช่น "https://your-app.vercel.app" —
+		// ใช้สร้างลิงก์ portal ในข้อความแจ้งเตือน LINE (src/reminders.js)
+		// ถ้าเว้นว่าง ข้อความจะไม่มีลิงก์แต่ยังส่ง Login Code ให้นักเรียนตามปกติ
+		"APP_ORIGIN": ""
+	},
+	// ทุก 5 นาที: ส่ง LINE แจ้งเตือนก่อนเรียน (src/reminders.js) — ไม่ต้องพึ่งแท็บครูเปิดอยู่
+	"triggers": {
+		"crons": ["*/5 * * * *"]
+	}
+	/**
+	 * Smart Placement
+	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+	 */
+	// "placement": {  "mode": "smart" }
+	/**
+	 * Static Assets
+	 * https://developers.cloudflare.com/workers/static-assets/binding/
+	 */
+	// "assets": {  "directory": "./public/",  "binding": "ASSETS" }
+	/**
+	 * Service Bindings (communicate between multiple Workers)
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
+	 */
+	// "services": [  {   "binding": "MY_SERVICE",   "service": "my-service"  } ]
+}
