@@ -2,13 +2,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nodePolyfills } from 'vite-plugin-node-polyfills'; // 1. นำเข้า Plugin
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig({
-  plugins: [
-    react(),
-    nodePolyfills({
-      protocolImports: true,
-    }),
-  ],
+  plugins: [react(), nodePolyfills({
+    protocolImports: true,
+  }), cloudflare()],
   server: {
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
